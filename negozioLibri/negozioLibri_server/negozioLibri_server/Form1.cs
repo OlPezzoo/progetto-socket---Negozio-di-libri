@@ -16,8 +16,7 @@ namespace negozioLibri_server
     public partial class frmServer : Form
     {
         List<Libro> libri = new List<Libro>();
-
-        //PROVA
+        public static string data = null; //dati in arrivo dal client
 
         public frmServer()
         {
@@ -37,7 +36,7 @@ namespace negozioLibri_server
 
             //creo un socket TCP
             Socket listener = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-
+            
             try
             {
                 //il socket viene associato alla porta e aspetta una connessione da parte di un client
@@ -58,7 +57,7 @@ namespace negozioLibri_server
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
+                MessageBox.Show(e.ToString());
             }
         }
 
@@ -141,6 +140,7 @@ namespace negozioLibri_server
 
     class ClientManager
     {
+        frmServer formServer = new frmServer();
         Socket clientSocket;
         byte[] bytes = new Byte[1024]; //bytes a disposizione per i dati
         String data = "";
@@ -160,6 +160,7 @@ namespace negozioLibri_server
                     int bytesRec = clientSocket.Receive(bytes); //vengono presi fino a 1024 byte del messaggio del socket client e messi nell'array bytes
                     data += Encoding.ASCII.GetString(bytes, 0, bytesRec); //concatena in data un carattere dopo l'altro, convertito in ASCII, dell'array bytes
                 }
+                MessageBox.Show(data);
                 byte[] msg = Encoding.ASCII.GetBytes(data); //converte la stringa passata per parametro in una sequenza di byte
                 clientSocket.Send(msg); //il messaggio viene mandato al socket client
             }

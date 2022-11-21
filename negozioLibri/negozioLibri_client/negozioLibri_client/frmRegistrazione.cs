@@ -5,6 +5,8 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Windows.Forms;
 
@@ -46,6 +48,72 @@ namespace negozioLibri_client
             return t;
         }
 
+        public void aggiungiUtente(string user, string pw, string cf, string mail, string cell)
+        {
+            byte[] bytes = new byte[1024]; //bytes a disposizione per i dati
+            int count = 0;
+
+            try
+            {
+                string data = "";
+                IPAddress ipAddress = System.Net.IPAddress.Parse("127.0.0.1");
+                IPEndPoint remoteEP = new IPEndPoint(ipAddress, 5000);
+
+                // Creo un socket TCP
+                Socket sender = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                Random rnd = new Random();
+                string stringa_da_inviare = "";
+
+                try
+                {
+                    sender.Connect(remoteEP);
+
+                    //MessageBox.Show("Connesso con " + sender.RemoteEndPoint.ToString());
+                    while (data != "Quit$")
+                    {
+                        stringa_da_inviare = "Registrazione utente " + user + " (password: " + pw + "; CF: " + cf + "; email: " + mail + "; cellulare: " + cell + ")" + "$";
+                        if (rnd.Next(0, 10) > 8 && count > 15)
+                        {
+                            stringa_da_inviare = "Quit$";
+                        }
+                        byte[] msg = Encoding.ASCII.GetBytes(stringa_da_inviare);
+
+                        int bytesSent = sender.Send(msg); //invio il messaggio attraverso il socket
+                        data = "";
+                        
+                        //ricevo la risposta dal server
+                        while (data.IndexOf("$") == -1)
+                        {
+                            int bytesRec = sender.Receive(bytes);
+                            data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                        }
+                        System.Threading.Thread.Sleep(1000);
+                        count++;
+                    }
+                    sender.Shutdown(SocketShutdown.Both);
+                    sender.Close();
+
+                }
+                catch (ArgumentNullException ane)
+                {
+                    MessageBox.Show("ArgumentNullException : {0}", ane.ToString());
+                }
+                catch (SocketException se)
+                {
+                    MessageBox.Show("SocketException : {0}", se.ToString());
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Unexpected exception : {0}", e.ToString());
+                }
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+        }
+
         private void btnRegistrati_Click(object sender, EventArgs e)
         {
 			if (txtUsername.Text != "" && mTxtPassword.Text != "" && txtCodiceFiscale.Text != "" && txtMail.Text != "" && txtCell.Text != "")
@@ -54,6 +122,7 @@ namespace negozioLibri_client
                 {
 					MessageBox.Show("Registrazione effettuata con successo.");
 					utenti.Add(new Utente(txtUsername.Text, mTxtPassword.Text, txtCodiceFiscale.Text, txtMail.Text, txtCell.Text));
+                    aggiungiUtente(txtUsername.Text, mTxtPassword.Text, txtCodiceFiscale.Text, txtMail.Text, txtCell.Text);
 
 					//scrittura su file
 					string path = @"..\..\..\..\elencoUtenti.csv";

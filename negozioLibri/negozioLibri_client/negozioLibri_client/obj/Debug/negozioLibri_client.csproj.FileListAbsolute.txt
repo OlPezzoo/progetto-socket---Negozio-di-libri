@@ -42,3 +42,14 @@ C:\Users\pezzotta.18163\Desktop\negozioLibri\negozioLibri_client\negozioLibri_cl
 C:\Users\pezzotta.18163\Desktop\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.csproj.CoreCompileInputs.cache
 C:\Users\pezzotta.18163\Desktop\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.exe
 C:\Users\pezzotta.18163\Desktop\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.pdb
+C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\bin\Debug\negozioLibri_client.exe
+C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\bin\Debug\negozioLibri_client.pdb
+C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.csproj.AssemblyReference.cache
+C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.frmHome.resources
+C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.frmAccedi.resources
+C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.frmRegistrazione.resources
+C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.Properties.Resources.resources
+C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.csproj.GenerateResource.cache
+C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.csproj.CoreCompileInputs.cache
+C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.exe
+C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.pdb
