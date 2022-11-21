@@ -16,6 +16,9 @@ namespace negozioLibri_server
     public partial class frmServer : Form
     {
         List<Libro> libri = new List<Libro>();
+
+        //PROVA
+
         public frmServer()
         {
             CheckForIllegalCrossThreadCalls = false;

@@ -34,3 +34,12 @@ C:\Users\pezzotta.18163\Desktop\negozioLibri\negozioLibri_server\negozioLibri_se
 C:\Users\pezzotta.18163\Desktop\negozioLibri\negozioLibri_server\negozioLibri_server\obj\Debug\negozioLibri_server.csproj.CoreCompileInputs.cache
 C:\Users\pezzotta.18163\Desktop\negozioLibri\negozioLibri_server\negozioLibri_server\obj\Debug\negozioLibri_server.exe
 C:\Users\pezzotta.18163\Desktop\negozioLibri\negozioLibri_server\negozioLibri_server\obj\Debug\negozioLibri_server.pdb
+C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_server\negozioLibri_server\bin\Debug\negozioLibri_server.exe
+C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_server\negozioLibri_server\bin\Debug\negozioLibri_server.pdb
+C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_server\negozioLibri_server\obj\Debug\negozioLibri_server.csproj.AssemblyReference.cache
+C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_server\negozioLibri_server\obj\Debug\negozioLibri_server.frmServer.resources
+C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_server\negozioLibri_server\obj\Debug\negozioLibri_server.Properties.Resources.resources
+C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_server\negozioLibri_server\obj\Debug\negozioLibri_server.csproj.GenerateResource.cache
+C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_server\negozioLibri_server\obj\Debug\negozioLibri_server.csproj.CoreCompileInputs.cache
+C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_server\negozioLibri_server\obj\Debug\negozioLibri_server.exe
+C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_server\negozioLibri_server\obj\Debug\negozioLibri_server.pdb
