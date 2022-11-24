@@ -15,8 +15,10 @@ namespace negozioLibri_server
 {
     public partial class frmServer : Form
     {
-        List<Libro> libri = new List<Libro>();
         public static string data = null; //dati in arrivo dal client
+        public static IPAddress ipAddress = System.Net.IPAddress.Parse("127.0.0.1");
+        public static IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 5000);
+        List<Libro> libri = new List<Libro>();
 
         public frmServer()
         {
@@ -31,9 +33,6 @@ namespace negozioLibri_server
 
         private void startListening()
         {
-            IPAddress ipAddress = System.Net.IPAddress.Parse("127.0.0.1");
-            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 5000);
-
             //creo un socket TCP
             Socket listener = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             
@@ -94,6 +93,31 @@ namespace negozioLibri_server
             }
         }
 
+        public void aggiungiLibro()
+        {
+            Socket listener = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+
+            try
+            {
+                listener.Bind(localEndPoint);
+                listener.Listen(10);
+
+                while (true)
+                {
+                    //attende finché non avviene una connessione
+                    listBoxAttivita.Items.Add("In attesa di connessione...");
+                    //all'arrivo di una connessione, viene creato un nuovo socket per essa
+                    Socket sender = listener.Accept();
+
+                    //DA FARE: sender manda un messaggio al client
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+        }
+
         private void btnMettiInVendita_Click(object sender, EventArgs e)
         {
             if (txtTitolo.Text != "" && txtMateria.Text != "" && txtCodiceISBN.Text != "")
@@ -102,6 +126,7 @@ namespace negozioLibri_server
                 {
                     MessageBox.Show("L'oggetto è stato messo in vendita!");
                     libri.Add(new Libro(picBoxFoto, txtTitolo.Text, txtMateria.Text, txtLingua.Text, txtCodiceISBN.Text, rTxtDescrizione.Text, numUpDownPrezzo.Value));
+                    aggiungiLibro();
 
                     //scrittura su file
                     string path = @"..\..\..\..\elencoLibri.csv";
@@ -152,7 +177,7 @@ namespace negozioLibri_server
 
         public void doClient()
         {
-            while (data != "Quit$")
+            while (true)
             {
                 data = "";
                 while (data.IndexOf("$") == -1)

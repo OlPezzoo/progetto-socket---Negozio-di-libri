@@ -34,12 +34,17 @@ namespace negozioLibri_client
 
         private void btnLente_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void btnLogoHome_Click(object sender, EventArgs e)
         {
             frmHome_Load(sender, e);
+        }
+
+        private void txtSearch_Enter(object sender, EventArgs e)
+        {
+            
         }
     }
 }

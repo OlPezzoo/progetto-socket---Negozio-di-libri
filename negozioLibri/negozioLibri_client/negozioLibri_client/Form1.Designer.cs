@@ -44,6 +44,7 @@ namespace negozioLibri_client
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(252, 20);
             this.txtSearch.TabIndex = 9;
+            this.txtSearch.Enter += new System.EventHandler(this.txtSearch_Enter);
             // 
             // btnUtente
             // 
