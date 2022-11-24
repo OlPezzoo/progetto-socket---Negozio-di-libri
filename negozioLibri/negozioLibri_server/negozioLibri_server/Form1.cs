@@ -65,7 +65,7 @@ namespace negozioLibri_server
             bool t = false;
             try
             {
-                foreach (string line in System.IO.File.ReadAllLines(@"..\..\..\..\elencoLibri.csv"))
+                foreach (string line in System.IO.File.ReadAllLines(@"..\..\elencoLibri.csv"))
                 {
                     string[] lineSplit = line.Split(';');
                     if (lineSplit[4] == txtCodiceISBN.Text)
@@ -91,6 +91,28 @@ namespace negozioLibri_server
                 Image img = Image.FromFile(addImageDialog.FileName);
                 picBoxFoto.Image = img;
             }
+        }
+
+        public bool ricercaCF(string cf)
+        {
+            bool t = false;
+            try
+            {
+                foreach (string line in System.IO.File.ReadAllLines(@"..\..\elencoUtenti.csv"))
+                {
+                    string[] lineSplit = line.Split(';');
+                    if (lineSplit[2] == cf)
+                    {
+                        t = true;
+                        break;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Si è verificato un errore.");
+            }
+            return t;
         }
 
         public void aggiungiLibro()
@@ -129,13 +151,13 @@ namespace negozioLibri_server
                     aggiungiLibro();
 
                     //scrittura su file
-                    string path = @"..\..\..\..\elencoLibri.csv";
+                    string path = @"..\..\elencoLibri.csv";
                     using (StreamWriter sw = File.AppendText(path))
                     {
                         sw.WriteLine(picBoxFoto + ";" + txtTitolo.Text + ";" + txtMateria.Text + ";" + txtLingua.Text + ";" + txtCodiceISBN.Text + ";" + rTxtDescrizione.Text + ";" + numUpDownPrezzo.Value);
                     }
 
-                    picBoxFoto.Image = Image.FromFile(@"..\..\..\..\imgAddPhoto.png");
+                    picBoxFoto.Image = Image.FromFile(@"..\..\imgAddPhoto.png");
                     txtTitolo.Text = "";
                     txtMateria.Text = "";
                     txtLingua.Text = "";
@@ -180,14 +202,43 @@ namespace negozioLibri_server
             while (true)
             {
                 data = "";
+                //viene decifrato il messaggio
                 while (data.IndexOf("$") == -1)
                 {
                     int bytesRec = clientSocket.Receive(bytes); //vengono presi fino a 1024 byte del messaggio del socket client e messi nell'array bytes
                     data += Encoding.ASCII.GetString(bytes, 0, bytesRec); //concatena in data un carattere dopo l'altro, convertito in ASCII, dell'array bytes
                 }
-                MessageBox.Show(data);
-                byte[] msg = Encoding.ASCII.GetBytes(data); //converte la stringa passata per parametro in una sequenza di byte
-                clientSocket.Send(msg); //il messaggio viene mandato al socket client
+
+                if (data.StartsWith("nr "))
+                {
+                    data = data.Remove(0, 3); //elimino la parte iniziale "nr "
+                    data = data.Remove(data.Length - 1); //elimino la parte finale "$"
+                    string[] dataSplit = data.Split(';');
+                    byte[] msg = Encoding.ASCII.GetBytes("");
+
+                    if (formServer.ricercaCF(dataSplit[2]) == false)
+                    {
+                        string path = @"..\..\elencoUtenti.csv";
+                        using (StreamWriter sw = File.AppendText(path))
+                        {
+                            sw.WriteLine(data);
+                        }
+                        msg = Encoding.ASCII.GetBytes("successful");
+                    }
+                    else
+                    {
+                        msg = Encoding.ASCII.GetBytes("failed");
+                    }
+                    clientSocket.Send(msg); //il messaggio viene mandato al socket client
+                }
+                else if (data.StartsWith("na "))
+                {
+                    
+                }
+                else if (data.StartsWith("src "))
+                {
+                    
+                }
             }
             clientSocket.Shutdown(SocketShutdown.Both); //chiude la connessione sia del client che del server
             clientSocket.Close();

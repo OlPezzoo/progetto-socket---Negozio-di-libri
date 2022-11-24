@@ -14,8 +14,6 @@ namespace negozioLibri_client
 {
     public partial class frmRegistrazione : Form
     {
-		List<Utente> utenti = new List<Utente>();
-
         public frmRegistrazione()
         {
             InitializeComponent();
@@ -26,29 +24,7 @@ namespace negozioLibri_client
 
         }
 
-		private bool ricercaCF()
-        {
-            bool t = false;
-            try
-            {
-                foreach (string line in System.IO.File.ReadAllLines(@"..\..\..\..\elencoUtenti.csv"))
-                {
-                    string[] lineSplit = line.Split(';');
-                    if (lineSplit[2] == txtCodiceFiscale.Text)
-                    {
-                        t = true;
-                        break;
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Si è verificato un errore.");
-            }
-            return t;
-        }
-
-        public void aggiungiUtente(string user, string pw, string cf, string mail, string cell)
+        public void aggiungiUtente(ref bool r)
         {
             byte[] bytes = new byte[1024]; //bytes a disposizione per i dati
 
@@ -65,18 +41,23 @@ namespace negozioLibri_client
                 try
                 {
                     sender.Connect(remoteEP);
-                    //MessageBox.Show("Connesso con " + sender.RemoteEndPoint.ToString());
-                    stringa_da_inviare = "Registrazione utente " + user + " (password: " + pw + "; CF: " + cf + "; email: " + mail + "; cellulare: " + cell + ")" + "$";
+                    stringa_da_inviare = "nr " + txtUsername.Text + ";" + mTxtPassword.Text + ";" + txtCodiceFiscale.Text + ";" + txtMail.Text + ";" + txtCell.Text + "$";
                     byte[] msg = Encoding.ASCII.GetBytes(stringa_da_inviare);
                     int bytesSent = sender.Send(msg); //invio il messaggio attraverso il socket
                     data = "";
 
-                    //ricevo la risposta dal server
-                    while (data.IndexOf("$") == -1)
+                    int bytesRec = sender.Receive(bytes);
+                    data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                    if (data == "successful")
                     {
-                        int bytesRec = sender.Receive(bytes);
-                        data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                        r = true;
+                        MessageBox.Show("Registrazione completata.");
                     }
+                    else if (data == "failed")
+                    {
+                        MessageBox.Show("Il codice fiscale inserito è già associato ad un utente.");
+                    }
+
                     sender.Shutdown(SocketShutdown.Both);
                     sender.Close();
                 }
@@ -104,23 +85,11 @@ namespace negozioLibri_client
         {
 			if (txtUsername.Text != "" && mTxtPassword.Text != "" && txtCodiceFiscale.Text != "" && txtMail.Text != "" && txtCell.Text != "")
             {
-				if (ricercaCF() == false)
+                bool r = false;
+                aggiungiUtente(ref r);
+                if (r == true)
                 {
-					MessageBox.Show("Registrazione effettuata con successo.");
-					utenti.Add(new Utente(txtUsername.Text, mTxtPassword.Text, txtCodiceFiscale.Text, txtMail.Text, txtCell.Text));
-                    aggiungiUtente(txtUsername.Text, mTxtPassword.Text, txtCodiceFiscale.Text, txtMail.Text, txtCell.Text);
-
-					//scrittura su file
-					string path = @"..\..\..\..\elencoUtenti.csv";
-					using (StreamWriter sw = File.AppendText(path))
-					{
-						sw.WriteLine(txtUsername.Text + ";" + mTxtPassword.Text + ";" + txtCodiceFiscale.Text + ";" + txtMail.Text + ";" + txtCell.Text);
-					}
-					this.Close();
-				}
-				else
-                {
-					MessageBox.Show("Il codice fiscale inserito è già associato ad un utente.");
+                    this.Close();
                 }
 			}
 			else
@@ -129,22 +98,4 @@ namespace negozioLibri_client
 			}
 		}
     }
-
-	class Utente
-	{
-		private string username { get; set; }
-		private string password { get; set; }
-		private string codiceFiscale { get; set; }
-		private string mail { get; set; }
-		private string cell { get; set; }
-
-		public Utente(string username, string password, string codiceFiscale, string mail, string cell)
-        {
-			this.username = username;
-			this.password = password;
-			this.codiceFiscale = codiceFiscale;
-			this.mail = mail;
-			this.cell = cell;
-        }
-	}
 }
