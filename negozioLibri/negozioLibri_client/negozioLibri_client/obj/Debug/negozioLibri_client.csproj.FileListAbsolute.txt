@@ -53,3 +53,14 @@ C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\nego
 C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.csproj.CoreCompileInputs.cache
 C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.exe
 C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.pdb
+C:\Users\pezzotta.18163\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\bin\Debug\negozioLibri_client.exe
+C:\Users\pezzotta.18163\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\bin\Debug\negozioLibri_client.pdb
+C:\Users\pezzotta.18163\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.csprojAssemblyReference.cache
+C:\Users\pezzotta.18163\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.frmHome.resources
+C:\Users\pezzotta.18163\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.frmAccedi.resources
+C:\Users\pezzotta.18163\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.frmRegistrazione.resources
+C:\Users\pezzotta.18163\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.Properties.Resources.resources
+C:\Users\pezzotta.18163\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.csproj.GenerateResource.cache
+C:\Users\pezzotta.18163\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.csproj.CoreCompileInputs.cache
+C:\Users\pezzotta.18163\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.exe
+C:\Users\pezzotta.18163\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.pdb

@@ -43,3 +43,12 @@ C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\nego
 C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_server\negozioLibri_server\obj\Debug\negozioLibri_server.csproj.CoreCompileInputs.cache
 C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_server\negozioLibri_server\obj\Debug\negozioLibri_server.exe
 C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_server\negozioLibri_server\obj\Debug\negozioLibri_server.pdb
+C:\Users\pezzotta.18163\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_server\negozioLibri_server\bin\Debug\negozioLibri_server.exe
+C:\Users\pezzotta.18163\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_server\negozioLibri_server\bin\Debug\negozioLibri_server.pdb
+C:\Users\pezzotta.18163\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_server\negozioLibri_server\obj\Debug\negozioLibri_server.csprojAssemblyReference.cache
+C:\Users\pezzotta.18163\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_server\negozioLibri_server\obj\Debug\negozioLibri_server.frmServer.resources
+C:\Users\pezzotta.18163\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_server\negozioLibri_server\obj\Debug\negozioLibri_server.Properties.Resources.resources
+C:\Users\pezzotta.18163\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_server\negozioLibri_server\obj\Debug\negozioLibri_server.csproj.GenerateResource.cache
+C:\Users\pezzotta.18163\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_server\negozioLibri_server\obj\Debug\negozioLibri_server.csproj.CoreCompileInputs.cache
+C:\Users\pezzotta.18163\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_server\negozioLibri_server\obj\Debug\negozioLibri_server.exe
+C:\Users\pezzotta.18163\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_server\negozioLibri_server\obj\Debug\negozioLibri_server.pdb

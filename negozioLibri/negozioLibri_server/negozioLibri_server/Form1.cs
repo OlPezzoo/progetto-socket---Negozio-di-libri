@@ -18,7 +18,6 @@ namespace negozioLibri_server
         public static string data = null; //dati in arrivo dal client
         public static IPAddress ipAddress = System.Net.IPAddress.Parse("127.0.0.1");
         public static IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 5000);
-        List<Libro> libri = new List<Libro>();
 
         public frmServer()
         {
@@ -169,7 +168,6 @@ namespace negozioLibri_server
                 if (ricercaISBN() == false)
                 {
                     MessageBox.Show("L'oggetto è stato messo in vendita!");
-                    libri.Add(new Libro(picBoxFoto, txtTitolo.Text, txtMateria.Text, txtLingua.Text, txtCodiceISBN.Text, rTxtDescrizione.Text, numUpDownPrezzo.Value));
                     aggiungiLibro();
 
                     //scrittura su file
@@ -271,33 +269,15 @@ namespace negozioLibri_server
                 {
                     
                 }
+                else if (data == "l$")
+                {
+                    msg = Encoding.ASCII.GetBytes("lr titoloLibro");
+                }
                 clientSocket.Send(msg); //il messaggio viene mandato al socket client
             }
             clientSocket.Shutdown(SocketShutdown.Both); //chiude la connessione sia del client che del server
             clientSocket.Close();
             data = "";
-        }
-    }
-
-    class Libro
-    {
-        private PictureBox foto { get; set; }
-        private string titolo { get; set; }
-        private string materia { get; set; }
-        private string lingua { get; set; }
-        private string isbn { get; set; }
-        private string descrizione { get; set; }
-        private decimal prezzo { get; set; }
-
-        public Libro(PictureBox foto, string titolo, string materia, string lingua, string isbn, string descrizione, decimal prezzo)
-        {
-            this.foto = foto;
-            this.titolo = titolo;
-            this.materia = materia;
-            this.lingua = lingua;
-            this.isbn = isbn;
-            this.descrizione = descrizione;
-            this.prezzo = prezzo;
         }
     }
 }

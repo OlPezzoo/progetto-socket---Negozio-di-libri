@@ -36,6 +36,8 @@ namespace negozioLibri_client
             this.btnLente = new System.Windows.Forms.Button();
             this.btnLogoHome = new System.Windows.Forms.Button();
             this.flPanelLibri = new System.Windows.Forms.FlowLayoutPanel();
+            this.lblLibroProva = new System.Windows.Forms.Label();
+            this.flPanelLibri.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtSearch
@@ -44,6 +46,7 @@ namespace negozioLibri_client
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(252, 20);
             this.txtSearch.TabIndex = 9;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             this.txtSearch.Enter += new System.EventHandler(this.txtSearch_Enter);
             // 
             // btnUtente
@@ -102,10 +105,20 @@ namespace negozioLibri_client
             // 
             // flPanelLibri
             // 
+            this.flPanelLibri.Controls.Add(this.lblLibroProva);
             this.flPanelLibri.Location = new System.Drawing.Point(28, 101);
             this.flPanelLibri.Name = "flPanelLibri";
             this.flPanelLibri.Size = new System.Drawing.Size(743, 310);
             this.flPanelLibri.TabIndex = 14;
+            // 
+            // lblLibroProva
+            // 
+            this.lblLibroProva.AutoSize = true;
+            this.lblLibroProva.Location = new System.Drawing.Point(3, 0);
+            this.lblLibroProva.Name = "lblLibroProva";
+            this.lblLibroProva.Size = new System.Drawing.Size(35, 13);
+            this.lblLibroProva.TabIndex = 0;
+            this.lblLibroProva.Text = "label1";
             // 
             // frmHome
             // 
@@ -122,6 +135,8 @@ namespace negozioLibri_client
             this.Name = "frmHome";
             this.Text = "Home";
             this.Load += new System.EventHandler(this.frmHome_Load);
+            this.flPanelLibri.ResumeLayout(false);
+            this.flPanelLibri.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -134,6 +149,7 @@ namespace negozioLibri_client
         private System.Windows.Forms.Button btnLente;
         private System.Windows.Forms.Button btnLogoHome;
         private System.Windows.Forms.FlowLayoutPanel flPanelLibri;
+        private System.Windows.Forms.Label lblLibroProva;
     }
 }
 
