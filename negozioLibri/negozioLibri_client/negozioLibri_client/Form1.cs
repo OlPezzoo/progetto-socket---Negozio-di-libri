@@ -14,10 +14,11 @@ namespace negozioLibri_client
 {
     public partial class frmHome : Form
     {
-        byte[] bytes = new byte[1024]; //bytes a disposizione per i dati
-        Socket sender;
-        string data;
-        string stringa_da_inviare;
+        public static byte[] bytes = new byte[1024]; //bytes a disposizione per i dati
+        public static Socket sender;
+        public static string data;
+        public static string stringa_da_inviare;
+        int count = 0;
 
         public frmHome()
         {
@@ -27,7 +28,7 @@ namespace negozioLibri_client
         private void frmHome_Load(object sender, EventArgs e)
         {
             connessione();
-            listen();
+            //listen();
         }
 
         public void connessione()
@@ -45,7 +46,6 @@ namespace negozioLibri_client
                 try
                 {
                     sender.Connect(remoteEP);
-                    MessageBox.Show("Sei connesso!");
                 }
                 catch (ArgumentNullException ane)
                 {
@@ -62,23 +62,59 @@ namespace negozioLibri_client
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString());
+                MessageBox.Show("Si è verificato un errore.");
             }
         }
 
         public void listen()
         {
-            stringa_da_inviare = "l$";
-            byte[] msg = Encoding.ASCII.GetBytes(stringa_da_inviare);
-            int bytesSent = sender.Send(msg); //invio il messaggio attraverso il socket
-            data = "";
-
-            int bytesRec = sender.Receive(bytes);
-            data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
-            if (data.StartsWith("lr "))
+            try
             {
-                //aggiungo elementi a flPanelLibri
-                lblLibroProva.Text = data;
+                stringa_da_inviare = "numl$";
+                byte[] msg = Encoding.ASCII.GetBytes(stringa_da_inviare);
+                int bytesSent = sender.Send(msg);
+                data = "";
+
+                int bytesRec = sender.Receive(bytes);
+                data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                data = data.Remove(0, 5); //elimino la parte iniziale "numl "
+                int nl = Int32.Parse(data);
+
+                for (int i = 0; i < nl; i++)
+                {
+                    stringa_da_inviare = "line " + i + "$";
+                    msg = Encoding.ASCII.GetBytes(stringa_da_inviare);
+                    bytesSent = sender.Send(msg);
+                    data = "";
+
+                    bytesRec = sender.Receive(bytes);
+                    data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                    data = data.Remove(0, 5); //elimino la parte iniziale "line "
+                    string[] dataSplit = data.Split(';');
+
+                    //aggiungo elementi a flPanelLibri
+
+                    PictureBox pic = new PictureBox();
+                    pic.Width = 150;
+                    pic.Height = 150;
+                    pic.BackgroundImageLayout = ImageLayout.Zoom;
+
+                    Label lbl = new Label();
+                    lbl.Parent = flPanelLibri;
+                    lbl.Font = new Font("Arial", 12);
+                    lbl.Name = "lbl_" + dataSplit[4];
+                    lbl.Text = dataSplit[1];
+                    lbl.AutoSize = true;
+                    lbl.Dock = DockStyle.Bottom;
+
+                    pic.Controls.Add(lbl);
+                    flPanelLibri.Controls.Add(pic);
+                    pic.Cursor = Cursors.Hand;
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Si è verificato un errore.");
             }
         }
 
@@ -96,57 +132,27 @@ namespace negozioLibri_client
 
         public void cerca(ref bool r)
         {
-            byte[] bytes = new byte[1024]; //bytes a disposizione per i dati
-
             try
             {
-                string data = "";
-                IPAddress ipAddress = System.Net.IPAddress.Parse("127.0.0.1");
-                IPEndPoint remoteEP = new IPEndPoint(ipAddress, 5000);
+                stringa_da_inviare = "src " + txtSearch.Text + "$";
+                byte[] msg = Encoding.ASCII.GetBytes(stringa_da_inviare);
+                int bytesSent = sender.Send(msg); //invio il messaggio attraverso il socket
+                data = "";
 
-                // Creo un socket TCP
-                Socket sender = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-                string stringa_da_inviare = "";
-
-                try
+                int bytesRec = sender.Receive(bytes);
+                data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                if (data == "successful")
                 {
-                    sender.Connect(remoteEP);
-                    stringa_da_inviare = "src " + txtSearch.Text + "$";
-                    byte[] msg = Encoding.ASCII.GetBytes(stringa_da_inviare);
-                    int bytesSent = sender.Send(msg); //invio il messaggio attraverso il socket
-                    data = "";
-
-                    int bytesRec = sender.Receive(bytes);
-                    data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
-                    if (data == "successful")
-                    {
-                        r = true;
-                    }
-                    else if (data == "failed")
-                    {
-                        MessageBox.Show("La tua ricerca non ha prodotto risultati.");
-                    }
-
-                    sender.Shutdown(SocketShutdown.Both);
-                    sender.Close();
+                    r = true;
                 }
-                catch (ArgumentNullException ane)
+                else if (data == "failed")
                 {
-                    MessageBox.Show("ArgumentNullException : {0}", ane.ToString());
+                    MessageBox.Show("La tua ricerca non ha prodotto risultati.");
                 }
-                catch (SocketException se)
-                {
-                    MessageBox.Show("SocketException : {0}", se.ToString());
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show("Unexpected exception : {0}", e.ToString());
-                }
-
             }
-            catch (Exception e)
+            catch(Exception e)
             {
-                MessageBox.Show(e.ToString());
+                MessageBox.Show("Si è verificato un errore.");
             }
         }
 
@@ -178,6 +184,11 @@ namespace negozioLibri_client
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnVisualizzaProdotti_Click(object sender, EventArgs e)
+        {
+            listen();
         }
     }
 }

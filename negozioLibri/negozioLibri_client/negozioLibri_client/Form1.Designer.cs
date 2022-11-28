@@ -36,8 +36,7 @@ namespace negozioLibri_client
             this.btnLente = new System.Windows.Forms.Button();
             this.btnLogoHome = new System.Windows.Forms.Button();
             this.flPanelLibri = new System.Windows.Forms.FlowLayoutPanel();
-            this.lblLibroProva = new System.Windows.Forms.Label();
-            this.flPanelLibri.SuspendLayout();
+            this.btnVisualizzaProdotti = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtSearch
@@ -105,20 +104,20 @@ namespace negozioLibri_client
             // 
             // flPanelLibri
             // 
-            this.flPanelLibri.Controls.Add(this.lblLibroProva);
             this.flPanelLibri.Location = new System.Drawing.Point(28, 101);
             this.flPanelLibri.Name = "flPanelLibri";
             this.flPanelLibri.Size = new System.Drawing.Size(743, 310);
             this.flPanelLibri.TabIndex = 14;
             // 
-            // lblLibroProva
+            // btnVisualizzaProdotti
             // 
-            this.lblLibroProva.AutoSize = true;
-            this.lblLibroProva.Location = new System.Drawing.Point(3, 0);
-            this.lblLibroProva.Name = "lblLibroProva";
-            this.lblLibroProva.Size = new System.Drawing.Size(35, 13);
-            this.lblLibroProva.TabIndex = 0;
-            this.lblLibroProva.Text = "label1";
+            this.btnVisualizzaProdotti.Location = new System.Drawing.Point(93, 60);
+            this.btnVisualizzaProdotti.Name = "btnVisualizzaProdotti";
+            this.btnVisualizzaProdotti.Size = new System.Drawing.Size(75, 23);
+            this.btnVisualizzaProdotti.TabIndex = 15;
+            this.btnVisualizzaProdotti.Text = "button1";
+            this.btnVisualizzaProdotti.UseVisualStyleBackColor = true;
+            this.btnVisualizzaProdotti.Click += new System.EventHandler(this.btnVisualizzaProdotti_Click);
             // 
             // frmHome
             // 
@@ -126,6 +125,7 @@ namespace negozioLibri_client
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnVisualizzaProdotti);
             this.Controls.Add(this.flPanelLibri);
             this.Controls.Add(this.btnLogoHome);
             this.Controls.Add(this.btnLente);
@@ -135,8 +135,6 @@ namespace negozioLibri_client
             this.Name = "frmHome";
             this.Text = "Home";
             this.Load += new System.EventHandler(this.frmHome_Load);
-            this.flPanelLibri.ResumeLayout(false);
-            this.flPanelLibri.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -149,7 +147,7 @@ namespace negozioLibri_client
         private System.Windows.Forms.Button btnLente;
         private System.Windows.Forms.Button btnLogoHome;
         private System.Windows.Forms.FlowLayoutPanel flPanelLibri;
-        private System.Windows.Forms.Label lblLibroProva;
+        private System.Windows.Forms.Button btnVisualizzaProdotti;
     }
 }
 

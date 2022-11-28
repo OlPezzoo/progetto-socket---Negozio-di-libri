@@ -136,31 +136,6 @@ namespace negozioLibri_server
             return t;
         }
 
-        public void aggiungiLibro()
-        {
-            Socket listener = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-
-            try
-            {
-                listener.Bind(localEndPoint);
-                listener.Listen(10);
-
-                while (true)
-                {
-                    //attende finché non avviene una connessione
-                    listBoxAttivita.Items.Add("In attesa di connessione...");
-                    //all'arrivo di una connessione, viene creato un nuovo socket per essa
-                    Socket sender = listener.Accept();
-
-                    //DA FARE: sender manda un messaggio al client
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.ToString());
-            }
-        }
-
         private void btnMettiInVendita_Click(object sender, EventArgs e)
         {
             if (txtTitolo.Text != "" && txtMateria.Text != "" && txtCodiceISBN.Text != "")
@@ -168,7 +143,6 @@ namespace negozioLibri_server
                 if (ricercaISBN() == false)
                 {
                     MessageBox.Show("L'oggetto è stato messo in vendita!");
-                    aggiungiLibro();
 
                     //scrittura su file
                     string path = @"..\..\elencoLibri.csv";
@@ -211,6 +185,7 @@ namespace negozioLibri_server
         Socket clientSocket;
         byte[] bytes = new Byte[1024]; //bytes a disposizione per i dati
         String data = "";
+        List<string> fileLines = new List<string>();
 
         public ClientManager(Socket clientSocket)
         {
@@ -219,7 +194,7 @@ namespace negozioLibri_server
 
         public void doClient()
         {
-            while (true)
+            while (data != "Quit$")
             {
                 data = "";
                 //viene decifrato il messaggio
@@ -249,6 +224,7 @@ namespace negozioLibri_server
                     {
                         msg = Encoding.ASCII.GetBytes("failed");
                     }
+                    clientSocket.Send(msg);
                 }
                 else if (data.StartsWith("na "))
                 {
@@ -264,16 +240,37 @@ namespace negozioLibri_server
                     {
                         msg = Encoding.ASCII.GetBytes("failed");
                     }
+                    clientSocket.Send(msg);
                 }
                 else if (data.StartsWith("src "))
                 {
                     
                 }
-                else if (data == "l$")
+                else if (data == "numl$")
                 {
-                    msg = Encoding.ASCII.GetBytes("lr titoloLibro");
+                    try
+                    {
+                        int nl = 0;
+                        foreach (string line in System.IO.File.ReadAllLines(@"..\..\elencoLibri.csv"))
+                        {
+                            fileLines.Add(line);
+                            nl++;
+                        }
+                        msg = Encoding.ASCII.GetBytes("numl " + nl.ToString());
+                        clientSocket.Send(msg);
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Si è verificato un errore.");
+                    }
                 }
-                clientSocket.Send(msg); //il messaggio viene mandato al socket client
+                else if (data.StartsWith("line "))
+                {
+                    data = data.Remove(0, 5); //elimino la parte iniziale "line "
+                    data = data.Remove(data.Length - 1); //elimino la parte finale "$"
+                    msg = Encoding.ASCII.GetBytes("line " + fileLines[Int32.Parse(data)]);
+                    clientSocket.Send(msg);
+                }
             }
             clientSocket.Shutdown(SocketShutdown.Both); //chiude la connessione sia del client che del server
             clientSocket.Close();

@@ -14,6 +14,11 @@ namespace negozioLibri_client
 {
     public partial class frmAccedi : Form
     {
+        byte[] bytes = frmHome.bytes;
+        Socket sender = frmHome.sender;
+        string data = frmHome.data;
+        string stringa_da_inviare = frmHome.stringa_da_inviare;
+
         public frmAccedi()
         {
             InitializeComponent();
@@ -26,58 +31,28 @@ namespace negozioLibri_client
 
         public void login(ref bool r)
         {
-            byte[] bytes = new byte[1024]; //bytes a disposizione per i dati
-
             try
             {
-                string data = "";
-                IPAddress ipAddress = System.Net.IPAddress.Parse("127.0.0.1");
-                IPEndPoint remoteEP = new IPEndPoint(ipAddress, 5000);
+                stringa_da_inviare = "na " + txtUsername_accedi.Text + ";" + mTxtPassword_accedi.Text + "$";
+                byte[] msg = Encoding.ASCII.GetBytes(stringa_da_inviare);
+                int bytesSent = sender.Send(msg); //invio il messaggio attraverso il socket
+                data = "";
 
-                // Creo un socket TCP
-                Socket sender = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-                string stringa_da_inviare = "";
-
-                try
+                int bytesRec = sender.Receive(bytes);
+                data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                if (data == "successful")
                 {
-                    sender.Connect(remoteEP);
-                    stringa_da_inviare = "na " + txtUsername_accedi.Text + ";" + mTxtPassword_accedi.Text + "$";
-                    byte[] msg = Encoding.ASCII.GetBytes(stringa_da_inviare);
-                    int bytesSent = sender.Send(msg); //invio il messaggio attraverso il socket
-                    data = "";
-
-                    int bytesRec = sender.Receive(bytes);
-                    data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
-                    if (data == "successful")
-                    {
-                        r = true;
-                        MessageBox.Show("Ciao, " + txtUsername_accedi.Text);
-                    }
-                    else if (data == "failed")
-                    {
-                        MessageBox.Show("Credenziali non valide.");
-                    }
-
-                    sender.Shutdown(SocketShutdown.Both);
-                    sender.Close();
+                    r = true;
+                    MessageBox.Show("Ciao " + txtUsername_accedi.Text);
                 }
-                catch (ArgumentNullException ane)
+                else if (data == "failed")
                 {
-                    MessageBox.Show("ArgumentNullException : {0}", ane.ToString());
+                    MessageBox.Show("Credenziali non valide.");
                 }
-                catch (SocketException se)
-                {
-                    MessageBox.Show("SocketException : {0}", se.ToString());
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show("Unexpected exception : {0}", e.ToString());
-                }
-
             }
-            catch (Exception e)
+            catch(Exception e)
             {
-                MessageBox.Show(e.ToString());
+                MessageBox.Show("Si è verificato un errore.");
             }
         }
 
