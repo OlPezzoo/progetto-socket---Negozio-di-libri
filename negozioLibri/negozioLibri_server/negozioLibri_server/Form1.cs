@@ -44,7 +44,6 @@ namespace negozioLibri_server
                 while (true)
                 {
                     //attende finché non avviene una connessione
-                    listBoxAttivita.Items.Add("In attesa di connessione...");
                     //all'arrivo di una connessione, viene creato un nuovo socket per essa
                     Socket handler = listener.Accept();
 
@@ -245,6 +244,10 @@ namespace negozioLibri_server
                 else if (data.StartsWith("src "))
                 {
                     
+                }
+                else if (data.StartsWith("buy "))
+                {
+
                 }
                 else if (data == "numl$")
                 {

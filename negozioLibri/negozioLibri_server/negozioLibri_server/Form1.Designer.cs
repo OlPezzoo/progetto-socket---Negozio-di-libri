@@ -49,8 +49,6 @@ namespace negozioLibri_server
             this.lblVendi = new System.Windows.Forms.Label();
             this.btnAttivaServer = new System.Windows.Forms.Button();
             this.pnlServer = new System.Windows.Forms.Panel();
-            this.listBoxAttivita = new System.Windows.Forms.ListBox();
-            this.lblAttivita = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownPrezzo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxFoto)).BeginInit();
@@ -238,8 +236,6 @@ namespace negozioLibri_server
             // 
             // pnlServer
             // 
-            this.pnlServer.Controls.Add(this.lblAttivita);
-            this.pnlServer.Controls.Add(this.listBoxAttivita);
             this.pnlServer.Controls.Add(this.btnMettiInVendita);
             this.pnlServer.Controls.Add(this.picBoxFoto);
             this.pnlServer.Controls.Add(this.lblVendi);
@@ -258,33 +254,16 @@ namespace negozioLibri_server
             this.pnlServer.Controls.Add(this.lblDescrizione);
             this.pnlServer.Location = new System.Drawing.Point(35, 88);
             this.pnlServer.Name = "pnlServer";
-            this.pnlServer.Size = new System.Drawing.Size(910, 512);
+            this.pnlServer.Size = new System.Drawing.Size(910, 334);
             this.pnlServer.TabIndex = 33;
             this.pnlServer.Visible = false;
-            // 
-            // listBoxAttivita
-            // 
-            this.listBoxAttivita.FormattingEnabled = true;
-            this.listBoxAttivita.Location = new System.Drawing.Point(25, 386);
-            this.listBoxAttivita.Name = "listBoxAttivita";
-            this.listBoxAttivita.Size = new System.Drawing.Size(843, 108);
-            this.listBoxAttivita.TabIndex = 32;
-            // 
-            // lblAttivita
-            // 
-            this.lblAttivita.AutoSize = true;
-            this.lblAttivita.Location = new System.Drawing.Point(33, 360);
-            this.lblAttivita.Name = "lblAttivita";
-            this.lblAttivita.Size = new System.Drawing.Size(42, 13);
-            this.lblAttivita.TabIndex = 33;
-            this.lblAttivita.Text = "Attività:";
             // 
             // frmServer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(991, 626);
+            this.ClientSize = new System.Drawing.Size(991, 476);
             this.Controls.Add(this.pnlServer);
             this.Controls.Add(this.btnAttivaServer);
             this.Controls.Add(this.picBoxLogo);
@@ -321,8 +300,6 @@ namespace negozioLibri_server
         private System.Windows.Forms.Label lblVendi;
         private System.Windows.Forms.Button btnAttivaServer;
         private System.Windows.Forms.Panel pnlServer;
-        private System.Windows.Forms.Label lblAttivita;
-        private System.Windows.Forms.ListBox listBoxAttivita;
     }
 }
 

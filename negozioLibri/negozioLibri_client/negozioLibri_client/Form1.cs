@@ -8,6 +8,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace negozioLibri_client
@@ -18,7 +20,6 @@ namespace negozioLibri_client
         public static Socket sender;
         public static string data;
         public static string stringa_da_inviare;
-        int count = 0;
 
         public frmHome()
         {
@@ -28,7 +29,7 @@ namespace negozioLibri_client
         private void frmHome_Load(object sender, EventArgs e)
         {
             connessione();
-            //listen();
+            listen();
         }
 
         public void connessione()
@@ -60,7 +61,7 @@ namespace negozioLibri_client
                     MessageBox.Show("Unexpected exception : {0}", e.ToString());
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 MessageBox.Show("Si è verificato un errore.");
             }
@@ -98,26 +99,63 @@ namespace negozioLibri_client
                     pic.Width = 150;
                     pic.Height = 150;
                     pic.BackgroundImageLayout = ImageLayout.Zoom;
+                    pic.Parent = flPanelLibri;
 
-                    Label lbl = new Label();
-                    lbl.Parent = flPanelLibri;
-                    lbl.Font = new Font("Arial", 12);
-                    lbl.Name = "lbl_" + dataSplit[4];
-                    lbl.Text = dataSplit[1];
-                    lbl.AutoSize = true;
-                    lbl.Dock = DockStyle.Bottom;
+                    Label lblTitolo = new Label();
+                    lblTitolo.Font = new Font("Arial", 12);
+                    lblTitolo.Name = "lblTitolo_" + dataSplit[4]; //dataSplit[4] = ISBN
+                    lblTitolo.Text = dataSplit[1];
+                    lblTitolo.AutoSize = true;
+                    lblTitolo.Dock = DockStyle.Bottom;
 
-                    pic.Controls.Add(lbl);
+                    Label lblPrezzo = new Label();
+                    lblPrezzo.Name = "lblPrezzo_" + dataSplit[4];
+                    lblPrezzo.Text = "€" + dataSplit[6];
+                    lblPrezzo.Width = 50;
+
+                    pic.Controls.Add(lblTitolo);
+                    pic.Controls.Add(lblPrezzo);
                     flPanelLibri.Controls.Add(pic);
                     pic.Cursor = Cursors.Hand;
+                    pic.Click += new EventHandler(picClick);
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 MessageBox.Show("Si è verificato un errore.");
             }
         }
 
+        private void picClick(object sender, EventArgs e)
+        {
+            acquista();
+        }
+
+        public void acquista()
+        {
+            try
+            {
+                stringa_da_inviare = "buy "; //da specificare anche l'ISBN
+                byte[] msg = Encoding.ASCII.GetBytes(stringa_da_inviare);
+                int bytesSent = sender.Send(msg);
+                data = "";
+
+                int bytesRec = sender.Receive(bytes);
+                data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                if (data == "successful")
+                {
+                    MessageBox.Show("Libro acquistato!");
+                }
+                else if (data == "failed")
+                {
+                    MessageBox.Show("Il libro non è disponibile.");
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Si è verificato un errore.");
+            }
+        }
 
         private void btnUtente_Click(object sender, EventArgs e)
         {
@@ -150,7 +188,7 @@ namespace negozioLibri_client
                     MessageBox.Show("La tua ricerca non ha prodotto risultati.");
                 }
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 MessageBox.Show("Si è verificato un errore.");
             }
@@ -184,11 +222,6 @@ namespace negozioLibri_client
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
 
-        }
-
-        private void btnVisualizzaProdotti_Click(object sender, EventArgs e)
-        {
-            listen();
         }
     }
 }

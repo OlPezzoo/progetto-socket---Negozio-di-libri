@@ -50,7 +50,7 @@ namespace negozioLibri_client
                     MessageBox.Show("Il codice fiscale inserito è già associato ad un utente.");
                 }
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 MessageBox.Show("Si è verificato un errore.");
             }

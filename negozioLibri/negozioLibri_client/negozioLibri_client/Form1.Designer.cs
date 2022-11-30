@@ -36,7 +36,6 @@ namespace negozioLibri_client
             this.btnLente = new System.Windows.Forms.Button();
             this.btnLogoHome = new System.Windows.Forms.Button();
             this.flPanelLibri = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnVisualizzaProdotti = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtSearch
@@ -109,23 +108,12 @@ namespace negozioLibri_client
             this.flPanelLibri.Size = new System.Drawing.Size(743, 310);
             this.flPanelLibri.TabIndex = 14;
             // 
-            // btnVisualizzaProdotti
-            // 
-            this.btnVisualizzaProdotti.Location = new System.Drawing.Point(93, 60);
-            this.btnVisualizzaProdotti.Name = "btnVisualizzaProdotti";
-            this.btnVisualizzaProdotti.Size = new System.Drawing.Size(75, 23);
-            this.btnVisualizzaProdotti.TabIndex = 15;
-            this.btnVisualizzaProdotti.Text = "button1";
-            this.btnVisualizzaProdotti.UseVisualStyleBackColor = true;
-            this.btnVisualizzaProdotti.Click += new System.EventHandler(this.btnVisualizzaProdotti_Click);
-            // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.btnVisualizzaProdotti);
             this.Controls.Add(this.flPanelLibri);
             this.Controls.Add(this.btnLogoHome);
             this.Controls.Add(this.btnLente);
@@ -147,7 +135,6 @@ namespace negozioLibri_client
         private System.Windows.Forms.Button btnLente;
         private System.Windows.Forms.Button btnLogoHome;
         private System.Windows.Forms.FlowLayoutPanel flPanelLibri;
-        private System.Windows.Forms.Button btnVisualizzaProdotti;
     }
 }
 
