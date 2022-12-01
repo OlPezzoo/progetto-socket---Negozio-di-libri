@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Windows.Forms;
 
@@ -13,21 +14,26 @@ namespace negozioLibri_client
     {
         string foto = "-";
         string titolo = "-";
-        string lingua = "-";
-        string descrizione = "-";
         string materia = "-";
+        string lingua = "-";
         string isbn = "-";
+        string descrizione = "-";
         string prezzo = "-";
 
-        public frmLibro(string foto, string titolo, string lingua, string descrizione, string materia, string isbn, string prezzo)
+        byte[] bytes = frmHome.bytes;
+        Socket sender = frmHome.sender;
+        string data = frmHome.data;
+        string stringa_da_inviare = frmHome.stringa_da_inviare;
+
+        public frmLibro(string foto, string titolo, string materia, string lingua, string isbn, string descrizione, string prezzo)
         {
             InitializeComponent();
             this.foto = foto;
             this.titolo = titolo;
-            this.lingua = lingua;
-            this.descrizione = descrizione;
             this.materia = materia;
+            this.lingua = lingua;
             this.isbn = isbn;
+            this.descrizione = descrizione;
             this.prezzo = prezzo;
         }
 
@@ -35,16 +41,43 @@ namespace negozioLibri_client
         {
             //picFoto
             titoloValue.Text = titolo;
-            linguaValue.Text = lingua;
-            descrizioneValue.Text = descrizione;
             materiaValue.Text = materia;
+            linguaValue.Text = lingua;
             isbnValue.Text = isbn;
+            descrizioneValue.Text = descrizione;
             prezzoValue.Text = prezzo;
         }
 
+        private void acquista()
+        {
+            try
+            {
+                stringa_da_inviare = "buy " + isbnValue.Text + "$";
+                byte[] msg = Encoding.ASCII.GetBytes(stringa_da_inviare);
+                int bytesSent = sender.Send(msg);
+                data = "";
+
+                int bytesRec = sender.Receive(bytes);
+                data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                if (data == "successful")
+                {
+                    MessageBox.Show("Acquisto effettuato con successo!");
+                }
+                else if (data == "failed")
+                {
+                    MessageBox.Show("Il libro non è disponibile.");
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Si è verificato un errore.");
+            }
+        }
+
+
         private void btnAcquista_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Acquisto effettuato con successo!");
+            acquista();
             this.Close();
         }
     }

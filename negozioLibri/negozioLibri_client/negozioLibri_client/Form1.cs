@@ -131,32 +131,6 @@ namespace negozioLibri_client
             formLibro.ShowDialog();
         }
 
-        public void acquista()
-        {
-            try
-            {
-                stringa_da_inviare = "buy "; //da specificare anche l'ISBN
-                byte[] msg = Encoding.ASCII.GetBytes(stringa_da_inviare);
-                int bytesSent = sender.Send(msg);
-                data = "";
-
-                int bytesRec = sender.Receive(bytes);
-                data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
-                if (data == "successful")
-                {
-                    MessageBox.Show("Libro acquistato!");
-                }
-                else if (data == "failed")
-                {
-                    MessageBox.Show("Il libro non è disponibile.");
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Si è verificato un errore.");
-            }
-        }
-
         private void btnUtente_Click(object sender, EventArgs e)
         {
             frmAccedi frmAcc = new frmAccedi();

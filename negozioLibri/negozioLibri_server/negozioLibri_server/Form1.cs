@@ -247,25 +247,45 @@ namespace negozioLibri_server
                 }
                 else if (data.StartsWith("buy "))
                 {
+                    data = data.Remove(0, 4); //elimino la parte iniziale "buy "
+                    data = data.Remove(data.Length - 1); //elimino la parte finale "$"
+                    string[] dataSplit = data.Split(';');
 
-                }
-                else if (data == "numl$")
-                {
                     try
                     {
-                        int nl = 0;
                         foreach (string line in System.IO.File.ReadAllLines(@"..\..\elencoLibri.csv"))
                         {
-                            fileLines.Add(line);
-                            nl++;
+                            string[] lineSplit = line.Split(';');
+                            if (lineSplit[4] == dataSplit[4])
+                            {
+                                fileLines.Remove(line);
+                                msg = Encoding.ASCII.GetBytes("successful");
+                            }
                         }
-                        msg = Encoding.ASCII.GetBytes("numl " + nl.ToString());
-                        clientSocket.Send(msg);
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("Si è verificato un errore.");
+                        msg = Encoding.ASCII.GetBytes("failed");
                     }
+
+                    File.WriteAllText(@"..\..\elencoLibri.csv", ""); //il file viene svuotato
+                    //il file viene riscritto
+                    foreach (string line in fileLines)
+                    {
+                        File.AppendAllText(@"..\..\elencoLibri.csv", line + "\n");
+                    }
+                    clientSocket.Send(msg);
+                }
+                else if (data == "numl$")
+                {
+                    int nl = 0;
+                    foreach (string line in System.IO.File.ReadAllLines(@"..\..\elencoLibri.csv"))
+                    {
+                        fileLines.Add(line);
+                        nl++;
+                    }
+                    msg = Encoding.ASCII.GetBytes("numl " + nl.ToString());
+                    clientSocket.Send(msg);
                 }
                 else if (data.StartsWith("line "))
                 {

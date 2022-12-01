@@ -68,13 +68,13 @@ namespace negozioLibri_client
             this.pnlDettagliLibro.Controls.Add(this.lblDescrizione);
             this.pnlDettagliLibro.Location = new System.Drawing.Point(33, 12);
             this.pnlDettagliLibro.Name = "pnlDettagliLibro";
-            this.pnlDettagliLibro.Size = new System.Drawing.Size(369, 539);
+            this.pnlDettagliLibro.Size = new System.Drawing.Size(369, 554);
             this.pnlDettagliLibro.TabIndex = 34;
             // 
             // prezzoValue
             // 
             this.prezzoValue.AutoSize = true;
-            this.prezzoValue.Location = new System.Drawing.Point(79, 449);
+            this.prezzoValue.Location = new System.Drawing.Point(79, 465);
             this.prezzoValue.Name = "prezzoValue";
             this.prezzoValue.Size = new System.Drawing.Size(10, 13);
             this.prezzoValue.TabIndex = 39;
@@ -83,7 +83,7 @@ namespace negozioLibri_client
             // isbnValue
             // 
             this.isbnValue.AutoSize = true;
-            this.isbnValue.Location = new System.Drawing.Point(73, 423);
+            this.isbnValue.Location = new System.Drawing.Point(73, 400);
             this.isbnValue.Name = "isbnValue";
             this.isbnValue.Size = new System.Drawing.Size(10, 13);
             this.isbnValue.TabIndex = 38;
@@ -92,7 +92,7 @@ namespace negozioLibri_client
             // materiaValue
             // 
             this.materiaValue.AutoSize = true;
-            this.materiaValue.Location = new System.Drawing.Point(83, 391);
+            this.materiaValue.Location = new System.Drawing.Point(83, 340);
             this.materiaValue.Name = "materiaValue";
             this.materiaValue.Size = new System.Drawing.Size(10, 13);
             this.materiaValue.TabIndex = 37;
@@ -101,7 +101,7 @@ namespace negozioLibri_client
             // descrizioneValue
             // 
             this.descrizioneValue.AutoSize = true;
-            this.descrizioneValue.Location = new System.Drawing.Point(103, 362);
+            this.descrizioneValue.Location = new System.Drawing.Point(103, 434);
             this.descrizioneValue.Name = "descrizioneValue";
             this.descrizioneValue.Size = new System.Drawing.Size(10, 13);
             this.descrizioneValue.TabIndex = 36;
@@ -110,7 +110,7 @@ namespace negozioLibri_client
             // linguaValue
             // 
             this.linguaValue.AutoSize = true;
-            this.linguaValue.Location = new System.Drawing.Point(80, 334);
+            this.linguaValue.Location = new System.Drawing.Point(80, 368);
             this.linguaValue.Name = "linguaValue";
             this.linguaValue.Size = new System.Drawing.Size(10, 13);
             this.linguaValue.TabIndex = 35;
@@ -139,7 +139,7 @@ namespace negozioLibri_client
             this.btnAcquista.FlatAppearance.BorderSize = 0;
             this.btnAcquista.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAcquista.ForeColor = System.Drawing.Color.White;
-            this.btnAcquista.Location = new System.Drawing.Point(137, 500);
+            this.btnAcquista.Location = new System.Drawing.Point(137, 515);
             this.btnAcquista.Name = "btnAcquista";
             this.btnAcquista.Size = new System.Drawing.Size(89, 23);
             this.btnAcquista.TabIndex = 29;
@@ -169,7 +169,7 @@ namespace negozioLibri_client
             // lblMateria
             // 
             this.lblMateria.AutoSize = true;
-            this.lblMateria.Location = new System.Drawing.Point(31, 391);
+            this.lblMateria.Location = new System.Drawing.Point(31, 340);
             this.lblMateria.Name = "lblMateria";
             this.lblMateria.Size = new System.Drawing.Size(45, 13);
             this.lblMateria.TabIndex = 20;
@@ -178,7 +178,7 @@ namespace negozioLibri_client
             // lblLingua
             // 
             this.lblLingua.AutoSize = true;
-            this.lblLingua.Location = new System.Drawing.Point(31, 334);
+            this.lblLingua.Location = new System.Drawing.Point(31, 368);
             this.lblLingua.Name = "lblLingua";
             this.lblLingua.Size = new System.Drawing.Size(42, 13);
             this.lblLingua.TabIndex = 21;
@@ -187,7 +187,7 @@ namespace negozioLibri_client
             // lblCodiceISBN
             // 
             this.lblCodiceISBN.AutoSize = true;
-            this.lblCodiceISBN.Location = new System.Drawing.Point(31, 423);
+            this.lblCodiceISBN.Location = new System.Drawing.Point(31, 400);
             this.lblCodiceISBN.Name = "lblCodiceISBN";
             this.lblCodiceISBN.Size = new System.Drawing.Size(35, 13);
             this.lblCodiceISBN.TabIndex = 22;
@@ -196,7 +196,7 @@ namespace negozioLibri_client
             // lblPrezzo
             // 
             this.lblPrezzo.AutoSize = true;
-            this.lblPrezzo.Location = new System.Drawing.Point(31, 449);
+            this.lblPrezzo.Location = new System.Drawing.Point(31, 465);
             this.lblPrezzo.Name = "lblPrezzo";
             this.lblPrezzo.Size = new System.Drawing.Size(42, 13);
             this.lblPrezzo.TabIndex = 24;
@@ -205,7 +205,7 @@ namespace negozioLibri_client
             // lblDescrizione
             // 
             this.lblDescrizione.AutoSize = true;
-            this.lblDescrizione.Location = new System.Drawing.Point(31, 362);
+            this.lblDescrizione.Location = new System.Drawing.Point(32, 434);
             this.lblDescrizione.Name = "lblDescrizione";
             this.lblDescrizione.Size = new System.Drawing.Size(65, 13);
             this.lblDescrizione.TabIndex = 23;
@@ -215,7 +215,7 @@ namespace negozioLibri_client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(432, 572);
+            this.ClientSize = new System.Drawing.Size(432, 589);
             this.Controls.Add(this.pnlDettagliLibro);
             this.Name = "frmLibro";
             this.Text = "Dettagli libro";
