@@ -56,6 +56,12 @@
     <Compile Include="frmAccedi.Designer.cs">
       <DependentUpon>frmAccedi.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmLibro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLibro.Designer.cs">
+      <DependentUpon>frmLibro.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmRegistrazione.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +75,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmAccedi.resx">
       <DependentUpon>frmAccedi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLibro.resx">
+      <DependentUpon>frmLibro.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmRegistrazione.resx">
       <DependentUpon>frmRegistrazione.cs</DependentUpon>

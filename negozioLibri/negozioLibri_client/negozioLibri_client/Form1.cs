@@ -20,6 +20,7 @@ namespace negozioLibri_client
         public static Socket sender;
         public static string data;
         public static string stringa_da_inviare;
+        string[] dataSplit;
 
         public frmHome()
         {
@@ -91,9 +92,7 @@ namespace negozioLibri_client
                     bytesRec = sender.Receive(bytes);
                     data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
                     data = data.Remove(0, 5); //elimino la parte iniziale "line "
-                    string[] dataSplit = data.Split(';');
-
-                    //aggiungo elementi a flPanelLibri
+                    dataSplit = data.Split(';');
 
                     PictureBox pic = new PictureBox();
                     pic.Width = 150;
@@ -128,7 +127,8 @@ namespace negozioLibri_client
 
         private void picClick(object sender, EventArgs e)
         {
-            acquista();
+            frmLibro formLibro = new frmLibro(dataSplit[0], dataSplit[1], dataSplit[2], dataSplit[3], dataSplit[4], dataSplit[5], dataSplit[6]);
+            formLibro.ShowDialog();
         }
 
         public void acquista()
@@ -161,11 +161,6 @@ namespace negozioLibri_client
         {
             frmAccedi frmAcc = new frmAccedi();
             frmAcc.ShowDialog();
-        }
-
-        private void btnCarrello_Click(object sender, EventArgs e)
-        {
-
         }
 
         public void cerca(ref bool r)
@@ -222,6 +217,12 @@ namespace negozioLibri_client
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnAggiorna_Click(object sender, EventArgs e)
+        {
+            flPanelLibri.Controls.Clear();
+            listen();
         }
     }
 }

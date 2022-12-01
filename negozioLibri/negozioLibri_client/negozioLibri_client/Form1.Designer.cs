@@ -32,10 +32,10 @@ namespace negozioLibri_client
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHome));
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnUtente = new System.Windows.Forms.Button();
-            this.btnCarrello = new System.Windows.Forms.Button();
             this.btnLente = new System.Windows.Forms.Button();
             this.btnLogoHome = new System.Windows.Forms.Button();
             this.flPanelLibri = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnAggiorna = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtSearch
@@ -61,19 +61,6 @@ namespace negozioLibri_client
             this.btnUtente.TabIndex = 10;
             this.btnUtente.UseVisualStyleBackColor = false;
             this.btnUtente.Click += new System.EventHandler(this.btnUtente_Click);
-            // 
-            // btnCarrello
-            // 
-            this.btnCarrello.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCarrello.BackgroundImage")));
-            this.btnCarrello.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnCarrello.FlatAppearance.BorderSize = 0;
-            this.btnCarrello.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCarrello.Location = new System.Drawing.Point(687, 23);
-            this.btnCarrello.Name = "btnCarrello";
-            this.btnCarrello.Size = new System.Drawing.Size(32, 27);
-            this.btnCarrello.TabIndex = 11;
-            this.btnCarrello.UseVisualStyleBackColor = true;
-            this.btnCarrello.Click += new System.EventHandler(this.btnCarrello_Click);
             // 
             // btnLente
             // 
@@ -103,21 +90,36 @@ namespace negozioLibri_client
             // 
             // flPanelLibri
             // 
-            this.flPanelLibri.Location = new System.Drawing.Point(28, 101);
+            this.flPanelLibri.AutoScroll = true;
+            this.flPanelLibri.Location = new System.Drawing.Point(28, 119);
             this.flPanelLibri.Name = "flPanelLibri";
-            this.flPanelLibri.Size = new System.Drawing.Size(743, 310);
+            this.flPanelLibri.Size = new System.Drawing.Size(743, 331);
             this.flPanelLibri.TabIndex = 14;
+            // 
+            // btnAggiorna
+            // 
+            this.btnAggiorna.BackColor = System.Drawing.Color.DarkBlue;
+            this.btnAggiorna.FlatAppearance.BorderSize = 0;
+            this.btnAggiorna.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAggiorna.ForeColor = System.Drawing.Color.White;
+            this.btnAggiorna.Location = new System.Drawing.Point(335, 80);
+            this.btnAggiorna.Name = "btnAggiorna";
+            this.btnAggiorna.Size = new System.Drawing.Size(123, 23);
+            this.btnAggiorna.TabIndex = 15;
+            this.btnAggiorna.Text = "Aggiorna risultati";
+            this.btnAggiorna.UseVisualStyleBackColor = false;
+            this.btnAggiorna.Click += new System.EventHandler(this.btnAggiorna_Click);
             // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 501);
+            this.Controls.Add(this.btnAggiorna);
             this.Controls.Add(this.flPanelLibri);
             this.Controls.Add(this.btnLogoHome);
             this.Controls.Add(this.btnLente);
-            this.Controls.Add(this.btnCarrello);
             this.Controls.Add(this.btnUtente);
             this.Controls.Add(this.txtSearch);
             this.Name = "frmHome";
@@ -131,10 +133,10 @@ namespace negozioLibri_client
         #endregion
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Button btnUtente;
-        private System.Windows.Forms.Button btnCarrello;
         private System.Windows.Forms.Button btnLente;
         private System.Windows.Forms.Button btnLogoHome;
         private System.Windows.Forms.FlowLayoutPanel flPanelLibri;
+        private System.Windows.Forms.Button btnAggiorna;
     }
 }
 

@@ -165,7 +165,7 @@ namespace negozioLibri_server
             }
             else
             {
-                MessageBox.Show("Devi compilare entrambi i campi.");
+                MessageBox.Show("Devi compilare tutti i campi necessari.");
             }
         }
 

@@ -64,3 +64,4 @@ C:\Users\pezzotta.18163\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\
 C:\Users\pezzotta.18163\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.csproj.CoreCompileInputs.cache
 C:\Users\pezzotta.18163\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.exe
 C:\Users\pezzotta.18163\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.pdb
+C:\Users\Davide CRJ\Desktop\progetto-socket---Negozio-di-libri\negozioLibri\negozioLibri_client\negozioLibri_client\obj\Debug\negozioLibri_client.frmLibro.resources

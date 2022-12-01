@@ -143,8 +143,6 @@ namespace negozioLibri_client
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnAccedi;
         private System.Windows.Forms.TextBox txtUsername_accedi;
         private System.Windows.Forms.Label lblPassword_accedi;
         private System.Windows.Forms.Label lblUsername_accedi;
@@ -152,5 +150,6 @@ namespace negozioLibri_client
         private System.Windows.Forms.PictureBox picBoxLogo;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.MaskedTextBox mTxtPassword_accedi;
+        public System.Windows.Forms.Button btnAccedi;
     }
 }

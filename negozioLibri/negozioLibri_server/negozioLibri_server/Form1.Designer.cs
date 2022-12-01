@@ -150,9 +150,9 @@ namespace negozioLibri_server
             this.lblCodiceISBN.AutoSize = true;
             this.lblCodiceISBN.Location = new System.Drawing.Point(663, 114);
             this.lblCodiceISBN.Name = "lblCodiceISBN";
-            this.lblCodiceISBN.Size = new System.Drawing.Size(32, 13);
+            this.lblCodiceISBN.Size = new System.Drawing.Size(39, 13);
             this.lblCodiceISBN.TabIndex = 22;
-            this.lblCodiceISBN.Text = "ISBN";
+            this.lblCodiceISBN.Text = "ISBN *";
             // 
             // lblLingua
             // 
@@ -168,9 +168,9 @@ namespace negozioLibri_server
             this.lblMateria.AutoSize = true;
             this.lblMateria.Location = new System.Drawing.Point(663, 75);
             this.lblMateria.Name = "lblMateria";
-            this.lblMateria.Size = new System.Drawing.Size(42, 13);
+            this.lblMateria.Size = new System.Drawing.Size(49, 13);
             this.lblMateria.TabIndex = 20;
-            this.lblMateria.Text = "Materia";
+            this.lblMateria.Text = "Materia *";
             // 
             // txtTitolo
             // 
@@ -184,9 +184,9 @@ namespace negozioLibri_server
             this.lblTitolo.AutoSize = true;
             this.lblTitolo.Location = new System.Drawing.Point(294, 77);
             this.lblTitolo.Name = "lblTitolo";
-            this.lblTitolo.Size = new System.Drawing.Size(33, 13);
+            this.lblTitolo.Size = new System.Drawing.Size(40, 13);
             this.lblTitolo.TabIndex = 18;
-            this.lblTitolo.Text = "Titolo";
+            this.lblTitolo.Text = "Titolo *";
             // 
             // picBoxFoto
             // 
