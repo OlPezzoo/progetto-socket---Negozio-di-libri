@@ -66,7 +66,7 @@ namespace negozioLibri_server
                 foreach (string line in System.IO.File.ReadAllLines(@"..\..\elencoLibri.csv"))
                 {
                     string[] lineSplit = line.Split(';');
-                    if (lineSplit[4] == txtCodiceISBN.Text)
+                    if (lineSplit[3] == txtCodiceISBN.Text)
                     {
                         t = true;
                         break;
@@ -147,7 +147,7 @@ namespace negozioLibri_server
                     string path = @"..\..\elencoLibri.csv";
                     using (StreamWriter sw = File.AppendText(path))
                     {
-                        sw.WriteLine(picBoxFoto + ";" + txtTitolo.Text + ";" + txtMateria.Text + ";" + txtLingua.Text + ";" + txtCodiceISBN.Text + ";" + rTxtDescrizione.Text + ";" + numUpDownPrezzo.Value);
+                        sw.WriteLine(txtTitolo.Text + ";" + txtMateria.Text + ";" + txtLingua.Text + ";" + txtCodiceISBN.Text + ";" + rTxtDescrizione.Text + ";" + numUpDownPrezzo.Value);
                     }
 
                     picBoxFoto.Image = Image.FromFile(@"..\..\imgAddPhoto.png");
@@ -254,9 +254,9 @@ namespace negozioLibri_server
                         foreach (string fl in System.IO.File.ReadAllLines(@"..\..\elencoLibri.csv"))
                         {
                             string[] lineSplit = fl.Split(';');
-                            if (!(lineSplit[1].StartsWith(data))) //lineSplit[1] --> titolo
+                            if (!(lineSplit[0].StartsWith(data))) //lineSplit[1] --> titolo
                             {
-                                isbnRm.Add(lineSplit[4]);
+                                isbnRm.Add(lineSplit[3]);
                                 count++;
                             }
                         }
@@ -280,7 +280,7 @@ namespace negozioLibri_server
                             foreach (string line in System.IO.File.ReadAllLines(@"..\..\elencoLibri.csv"))
                             {
                                 string[] lineSplit = line.Split(';');
-                                if (lineSplit[4] == data)
+                                if (lineSplit[3] == data)
                                 {
                                     fileLines.Remove(line);
                                     msg = Encoding.ASCII.GetBytes("successful");
@@ -324,7 +324,7 @@ namespace negozioLibri_server
                 clientSocket.Close();
                 data = "";
             }
-            catch(SocketException)
+            catch (SocketException)
             {
                 Console.WriteLine("SocketException");
             }

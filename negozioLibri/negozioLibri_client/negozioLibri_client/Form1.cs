@@ -95,25 +95,26 @@ namespace negozioLibri_client
                     data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
                     data = data.Remove(0, 5); //elimino la parte iniziale "line "
                     dataSplit = data.Split(';');
-                    libri.Add(new Libro(dataSplit[0], dataSplit[1], dataSplit[2], dataSplit[3], dataSplit[4], dataSplit[5], dataSplit[6]));
+                    libri.Add(new Libro(dataSplit[0], dataSplit[1], dataSplit[2], dataSplit[3], dataSplit[4], dataSplit[5]));
 
                     PictureBox pic = new PictureBox();
                     pic.Width = 150;
                     pic.Height = 150;
                     pic.BackgroundImageLayout = ImageLayout.Zoom;
+                    pic.BackgroundImage = Image.FromFile(@"..\..\imgLibro.png");
                     pic.Parent = flPanelLibri;
                     pic.Name = "pic_" + i.ToString();
 
                     Label lblTitolo = new Label();
                     lblTitolo.Font = new Font("Arial", 12);
-                    lblTitolo.Name = "lblTitolo_" + dataSplit[4]; //dataSplit[4] --> ISBN
-                    lblTitolo.Text = dataSplit[1];
+                    lblTitolo.Name = "lblTitolo_" + dataSplit[3]; //dataSplit[4] --> ISBN
+                    lblTitolo.Text = dataSplit[0];
                     lblTitolo.AutoSize = true;
                     lblTitolo.Dock = DockStyle.Bottom;
 
                     Label lblPrezzo = new Label();
-                    lblPrezzo.Name = "lblPrezzo_" + dataSplit[4];
-                    lblPrezzo.Text = "€" + dataSplit[6];
+                    lblPrezzo.Name = "lblPrezzo_" + dataSplit[3];
+                    lblPrezzo.Text = "€" + dataSplit[5];
                     lblPrezzo.Width = 50;
 
                     pic.Controls.Add(lblTitolo);
@@ -134,7 +135,7 @@ namespace negozioLibri_client
             string senderName = ((PictureBox)sender).Name; //casting del nome della PictureBox
             string[] senderNameSplit = senderName.Split('_');
             int indice = Int32.Parse(senderNameSplit[1]);
-            frmLibro formLibro = new frmLibro(libri[indice].pic, libri[indice].titolo, libri[indice].materia, libri[indice].lingua, libri[indice].isbn, libri[indice].descrizione, libri[indice].prezzo);
+            frmLibro formLibro = new frmLibro(libri[indice].titolo, libri[indice].materia, libri[indice].lingua, libri[indice].isbn, libri[indice].descrizione, libri[indice].prezzo);
             formLibro.ShowDialog();
         }
 
@@ -185,7 +186,7 @@ namespace negozioLibri_client
                     }
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
@@ -233,7 +234,6 @@ namespace negozioLibri_client
 
     class Libro
     {
-        public string pic { get; set; }
         public string titolo { get; set; }
         public string materia { get; set; }
         public string lingua { get; set; }
@@ -241,9 +241,8 @@ namespace negozioLibri_client
         public string descrizione { get; set; }
         public string prezzo { get; set; }
 
-        public Libro(string pic, string titolo, string materia, string lingua, string isbn, string descrizione, string prezzo)
+        public Libro(string titolo, string materia, string lingua, string isbn, string descrizione, string prezzo)
         {
-            this.pic = pic;
             this.titolo = titolo;
             this.materia = materia;
             this.lingua = lingua;

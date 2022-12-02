@@ -29,6 +29,7 @@ namespace negozioLibri_client
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLibro));
             this.pnlDettagliLibro = new System.Windows.Forms.Panel();
             this.prezzoValue = new System.Windows.Forms.Label();
             this.isbnValue = new System.Windows.Forms.Label();
@@ -127,15 +128,18 @@ namespace negozioLibri_client
             // 
             // picFoto
             // 
+            this.picFoto.Image = ((System.Drawing.Image)(resources.GetObject("picFoto.Image")));
             this.picFoto.Location = new System.Drawing.Point(34, 70);
             this.picFoto.Name = "picFoto";
             this.picFoto.Size = new System.Drawing.Size(202, 200);
+            this.picFoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picFoto.TabIndex = 33;
             this.picFoto.TabStop = false;
             // 
             // btnAcquista
             // 
             this.btnAcquista.BackColor = System.Drawing.Color.DarkBlue;
+            this.btnAcquista.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAcquista.FlatAppearance.BorderSize = 0;
             this.btnAcquista.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAcquista.ForeColor = System.Drawing.Color.White;
