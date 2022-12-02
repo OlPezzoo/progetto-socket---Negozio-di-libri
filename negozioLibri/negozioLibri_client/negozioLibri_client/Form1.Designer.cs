@@ -32,10 +32,10 @@ namespace negozioLibri_client
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHome));
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnUtente = new System.Windows.Forms.Button();
-            this.btnLente = new System.Windows.Forms.Button();
             this.btnLogoHome = new System.Windows.Forms.Button();
             this.flPanelLibri = new System.Windows.Forms.FlowLayoutPanel();
             this.btnAggiorna = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtSearch
@@ -46,6 +46,7 @@ namespace negozioLibri_client
             this.txtSearch.TabIndex = 9;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             this.txtSearch.Enter += new System.EventHandler(this.txtSearch_Enter);
+            this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSearch_KeyPress);
             // 
             // btnUtente
             // 
@@ -61,19 +62,6 @@ namespace negozioLibri_client
             this.btnUtente.TabIndex = 10;
             this.btnUtente.UseVisualStyleBackColor = false;
             this.btnUtente.Click += new System.EventHandler(this.btnUtente_Click);
-            // 
-            // btnLente
-            // 
-            this.btnLente.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnLente.BackgroundImage")));
-            this.btnLente.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnLente.FlatAppearance.BorderSize = 0;
-            this.btnLente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLente.Location = new System.Drawing.Point(518, 30);
-            this.btnLente.Name = "btnLente";
-            this.btnLente.Size = new System.Drawing.Size(19, 20);
-            this.btnLente.TabIndex = 12;
-            this.btnLente.UseVisualStyleBackColor = true;
-            this.btnLente.Click += new System.EventHandler(this.btnLente_Click);
             // 
             // btnLogoHome
             // 
@@ -110,16 +98,29 @@ namespace negozioLibri_client
             this.btnAggiorna.UseVisualStyleBackColor = false;
             this.btnAggiorna.Click += new System.EventHandler(this.btnAggiorna_Click);
             // 
+            // btnCancel
+            // 
+            this.btnCancel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCancel.BackgroundImage")));
+            this.btnCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnCancel.FlatAppearance.BorderSize = 0;
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.Location = new System.Drawing.Point(518, 26);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(17, 24);
+            this.btnCancel.TabIndex = 16;
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(800, 501);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAggiorna);
             this.Controls.Add(this.flPanelLibri);
             this.Controls.Add(this.btnLogoHome);
-            this.Controls.Add(this.btnLente);
             this.Controls.Add(this.btnUtente);
             this.Controls.Add(this.txtSearch);
             this.Name = "frmHome";
@@ -133,10 +134,10 @@ namespace negozioLibri_client
         #endregion
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Button btnUtente;
-        private System.Windows.Forms.Button btnLente;
         private System.Windows.Forms.Button btnLogoHome;
         private System.Windows.Forms.FlowLayoutPanel flPanelLibri;
         private System.Windows.Forms.Button btnAggiorna;
+        private System.Windows.Forms.Button btnCancel;
     }
 }
 

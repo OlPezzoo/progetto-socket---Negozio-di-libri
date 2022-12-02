@@ -106,7 +106,7 @@ namespace negozioLibri_client
 
                     Label lblTitolo = new Label();
                     lblTitolo.Font = new Font("Arial", 12);
-                    lblTitolo.Name = "lblTitolo_" + dataSplit[4]; //dataSplit[4] = ISBN
+                    lblTitolo.Name = "lblTitolo_" + dataSplit[4]; //dataSplit[4] --> ISBN
                     lblTitolo.Text = dataSplit[1];
                     lblTitolo.AutoSize = true;
                     lblTitolo.Dock = DockStyle.Bottom;
@@ -144,45 +144,51 @@ namespace negozioLibri_client
             frmAcc.ShowDialog();
         }
 
-        public void cerca(ref bool r)
+        private void cerca()
         {
             try
             {
-                stringa_da_inviare = "src " + txtSearch.Text + "$";
+                stringa_da_inviare = "numRm " + txtSearch.Text + "$";
                 byte[] msg = Encoding.ASCII.GetBytes(stringa_da_inviare);
-                int bytesSent = sender.Send(msg); //invio il messaggio attraverso il socket
+                int bytesSent = sender.Send(msg);
                 data = "";
 
                 int bytesRec = sender.Receive(bytes);
                 data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
-                if (data == "successful")
+                data = data.Remove(0, 6); //elimino la parte iniziale "numRm "
+                int count = Int32.Parse(data);
+
+                if (count != 0)
                 {
-                    r = true;
-                }
-                else if (data == "failed")
-                {
-                    MessageBox.Show("La tua ricerca non ha prodotto risultati.");
+                    for (int i = 0; i < count; i++)
+                    {
+                        stringa_da_inviare = "rm " + i + "$";
+                        msg = Encoding.ASCII.GetBytes(stringa_da_inviare);
+                        bytesSent = sender.Send(msg);
+                        data = "";
+
+                        bytesRec = sender.Receive(bytes);
+                        data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                        data = data.Remove(0, 3); //elimino la parte iniziale "rm "
+
+                        string nameLabel = "lblTitolo_" + data;
+                        foreach (PictureBox p in flPanelLibri.Controls)
+                        {
+                            foreach (Label lbl in p.Controls)
+                            {
+                                if (lbl.Name == nameLabel)
+                                {
+                                    flPanelLibri.Controls.Remove(p);
+                                }
+                            }
+                        }
+                    }
                 }
             }
             catch(Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
-        }
-
-        private void eseguiRicerca()
-        {
-            bool r = false;
-            cerca(ref r);
-            if (r == true)
-            {
-                this.Close();
-            }
-        }
-
-        private void btnLente_Click(object sender, EventArgs e)
-        {
-            
         }
 
         private void btnLogoHome_Click(object sender, EventArgs e)
@@ -197,13 +203,31 @@ namespace negozioLibri_client
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-
+            if (!(string.IsNullOrEmpty(txtSearch.Text)))
+            {
+                cerca();
+            }
+            else
+            {
+                flPanelLibri.Controls.Clear();
+                listen();
+            }
         }
 
         private void btnAggiorna_Click(object sender, EventArgs e)
         {
             flPanelLibri.Controls.Clear();
             listen();
+        }
+
+        private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            txtSearch.Text = "";
         }
     }
 

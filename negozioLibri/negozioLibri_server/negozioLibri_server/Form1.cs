@@ -185,6 +185,7 @@ namespace negozioLibri_server
         byte[] bytes = new Byte[1024]; //bytes a disposizione per i dati
         String data = "";
         List<string> fileLines = new List<string>();
+        List<string> isbnRm = new List<string>();
 
         public ClientManager(Socket clientSocket)
         {
@@ -243,25 +244,53 @@ namespace negozioLibri_server
                         }
                         clientSocket.Send(msg);
                     }
-                    else if (data.StartsWith("src "))
+                    else if (data.StartsWith("numRm "))
                     {
+                        data = data.Remove(0, 6); //elimino la parte iniziale "numRm "
+                        data = data.Remove(data.Length - 1); //elimino la parte finale "$"
 
+                        isbnRm.Clear();
+                        int count = 0;
+                        foreach (string fl in System.IO.File.ReadAllLines(@"..\..\elencoLibri.csv"))
+                        {
+                            string[] lineSplit = fl.Split(';');
+                            if (!(lineSplit[1].StartsWith(data))) //lineSplit[1] --> titolo
+                            {
+                                isbnRm.Add(lineSplit[4]);
+                                count++;
+                            }
+                        }
+                        msg = Encoding.ASCII.GetBytes("numRm " + count.ToString());
+                        clientSocket.Send(msg);
+                    }
+                    else if (data.StartsWith("rm "))
+                    {
+                        data = data.Remove(0, 3); //elimino la parte iniziale "rm "
+                        data = data.Remove(data.Length - 1); //elimino la parte finale "$"
+                        msg = Encoding.ASCII.GetBytes("rm " + isbnRm[Int32.Parse(data)]);
+                        clientSocket.Send(msg);
                     }
                     else if (data.StartsWith("buy "))
                     {
                         data = data.Remove(0, 4); //elimino la parte iniziale "buy "
                         data = data.Remove(data.Length - 1); //elimino la parte finale "$"
-                        string[] dataSplit = data.Split(';');
 
                         try
                         {
                             foreach (string line in System.IO.File.ReadAllLines(@"..\..\elencoLibri.csv"))
                             {
                                 string[] lineSplit = line.Split(';');
-                                if (lineSplit[4] == dataSplit[4])
+                                if (lineSplit[4] == data)
                                 {
                                     fileLines.Remove(line);
                                     msg = Encoding.ASCII.GetBytes("successful");
+
+                                    File.WriteAllText(@"..\..\elencoLibri.csv", ""); //il file viene svuotato
+                                    //il file viene riscritto
+                                    foreach (string fl in fileLines)
+                                    {
+                                        File.AppendAllText(@"..\..\elencoLibri.csv", fl + "\n");
+                                    }
                                 }
                             }
                         }
@@ -269,17 +298,11 @@ namespace negozioLibri_server
                         {
                             msg = Encoding.ASCII.GetBytes("failed");
                         }
-
-                        File.WriteAllText(@"..\..\elencoLibri.csv", ""); //il file viene svuotato
-                                                                         //il file viene riscritto
-                        foreach (string line in fileLines)
-                        {
-                            File.AppendAllText(@"..\..\elencoLibri.csv", line + "\n");
-                        }
                         clientSocket.Send(msg);
                     }
                     else if (data == "numl$")
                     {
+                        fileLines.Clear();
                         int nl = 0;
                         foreach (string line in System.IO.File.ReadAllLines(@"..\..\elencoLibri.csv"))
                         {

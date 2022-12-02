@@ -18,6 +18,7 @@ namespace negozioLibri_client
         Socket sender = frmHome.sender;
         string data = frmHome.data;
         string stringa_da_inviare = frmHome.stringa_da_inviare;
+        public static bool logged = false;
 
         public frmAccedi()
         {
@@ -29,7 +30,7 @@ namespace negozioLibri_client
 
         }
 
-        public void login(ref bool r)
+        public void login(ref bool l)
         {
             try
             {
@@ -42,7 +43,7 @@ namespace negozioLibri_client
                 data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
                 if (data == "successful")
                 {
-                    r = true;
+                    l = true;
                     MessageBox.Show("Ciao " + txtUsername_accedi.Text);
                 }
                 else if (data == "failed")
@@ -60,9 +61,8 @@ namespace negozioLibri_client
         {
             if (txtUsername_accedi.Text != "" && mTxtPassword_accedi.Text != "")
             {
-                bool r = false;
-                login(ref r);
-                if (r == true)
+                login(ref logged);
+                if (logged == true)
                 {
                     this.Close();
                 }

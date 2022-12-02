@@ -24,6 +24,7 @@ namespace negozioLibri_client
         Socket sender = frmHome.sender;
         string data = frmHome.data;
         string stringa_da_inviare = frmHome.stringa_da_inviare;
+        bool logged = frmAccedi.logged;
 
         public frmLibro(string foto, string titolo, string materia, string lingua, string isbn, string descrizione, string prezzo)
         {
@@ -77,8 +78,15 @@ namespace negozioLibri_client
 
         private void btnAcquista_Click(object sender, EventArgs e)
         {
-            acquista();
-            this.Close();
+            if (logged == true)
+            {
+                acquista();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Per poter acquistare libri devi effettuare l'accesso.");
+            }
         }
     }
 }
