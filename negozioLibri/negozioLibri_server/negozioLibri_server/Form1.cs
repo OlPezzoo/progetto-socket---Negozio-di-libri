@@ -73,9 +73,9 @@ namespace negozioLibri_server
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                MessageBox.Show("Si è verificato un errore.");
+                Console.WriteLine(e.ToString());
             }
             return t;
         }
@@ -106,9 +106,9 @@ namespace negozioLibri_server
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                MessageBox.Show("Si è verificato un errore.");
+                Console.WriteLine(e.ToString());
             }
             return t;
         }
@@ -128,9 +128,9 @@ namespace negozioLibri_server
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                MessageBox.Show("Si è verificato un errore.");
+                Console.WriteLine(e.ToString());
             }
             return t;
         }
@@ -193,111 +193,118 @@ namespace negozioLibri_server
 
         public void doClient()
         {
-            while (data != "Quit$")
+            try
             {
-                data = "";
-                //viene decifrato il messaggio
-                while (data.IndexOf("$") == -1)
+                while (data != "Quit$")
                 {
-                    int bytesRec = clientSocket.Receive(bytes); //vengono presi fino a 1024 byte del messaggio del socket client e messi nell'array bytes
-                    data += Encoding.ASCII.GetString(bytes, 0, bytesRec); //concatena in data un carattere dopo l'altro, convertito in ASCII, dell'array bytes
-                }
-                byte[] msg = Encoding.ASCII.GetBytes("");
-
-                if (data.StartsWith("nr "))
-                {
-                    data = data.Remove(0, 3); //elimino la parte iniziale "nr "
-                    data = data.Remove(data.Length - 1); //elimino la parte finale "$"
-                    string[] dataSplit = data.Split(';');
-
-                    if (formServer.ricercaCF(dataSplit[2]) == false)
+                    data = "";
+                    //viene decifrato il messaggio
+                    while (data.IndexOf("$") == -1)
                     {
-                        string path = @"..\..\elencoUtenti.csv";
-                        using (StreamWriter sw = File.AppendText(path))
+                        int bytesRec = clientSocket.Receive(bytes); //vengono presi fino a 1024 byte del messaggio del socket client e messi nell'array bytes
+                        data += Encoding.ASCII.GetString(bytes, 0, bytesRec); //concatena in data un carattere dopo l'altro, convertito in ASCII, dell'array bytes
+                    }
+                    byte[] msg = Encoding.ASCII.GetBytes("");
+
+                    if (data.StartsWith("nr "))
+                    {
+                        data = data.Remove(0, 3); //elimino la parte iniziale "nr "
+                        data = data.Remove(data.Length - 1); //elimino la parte finale "$"
+                        string[] dataSplit = data.Split(';');
+
+                        if (formServer.ricercaCF(dataSplit[2]) == false)
                         {
-                            sw.WriteLine(data);
-                        }
-                        msg = Encoding.ASCII.GetBytes("successful");
-                    }
-                    else
-                    {
-                        msg = Encoding.ASCII.GetBytes("failed");
-                    }
-                    clientSocket.Send(msg);
-                }
-                else if (data.StartsWith("na "))
-                {
-                    data = data.Remove(0, 3); //elimino la parte iniziale "na "
-                    data = data.Remove(data.Length - 1); //elimino la parte finale "$"
-                    string[] dataSplit = data.Split(';');
-
-                    if (formServer.login(dataSplit[0], dataSplit[1]) == true)
-                    {
-                        msg = Encoding.ASCII.GetBytes("successful");
-                    }
-                    else
-                    {
-                        msg = Encoding.ASCII.GetBytes("failed");
-                    }
-                    clientSocket.Send(msg);
-                }
-                else if (data.StartsWith("src "))
-                {
-                    
-                }
-                else if (data.StartsWith("buy "))
-                {
-                    data = data.Remove(0, 4); //elimino la parte iniziale "buy "
-                    data = data.Remove(data.Length - 1); //elimino la parte finale "$"
-                    string[] dataSplit = data.Split(';');
-
-                    try
-                    {
-                        foreach (string line in System.IO.File.ReadAllLines(@"..\..\elencoLibri.csv"))
-                        {
-                            string[] lineSplit = line.Split(';');
-                            if (lineSplit[4] == dataSplit[4])
+                            string path = @"..\..\elencoUtenti.csv";
+                            using (StreamWriter sw = File.AppendText(path))
                             {
-                                fileLines.Remove(line);
-                                msg = Encoding.ASCII.GetBytes("successful");
+                                sw.WriteLine(data);
+                            }
+                            msg = Encoding.ASCII.GetBytes("successful");
+                        }
+                        else
+                        {
+                            msg = Encoding.ASCII.GetBytes("failed");
+                        }
+                        clientSocket.Send(msg);
+                    }
+                    else if (data.StartsWith("na "))
+                    {
+                        data = data.Remove(0, 3); //elimino la parte iniziale "na "
+                        data = data.Remove(data.Length - 1); //elimino la parte finale "$"
+                        string[] dataSplit = data.Split(';');
+
+                        if (formServer.login(dataSplit[0], dataSplit[1]) == true)
+                        {
+                            msg = Encoding.ASCII.GetBytes("successful");
+                        }
+                        else
+                        {
+                            msg = Encoding.ASCII.GetBytes("failed");
+                        }
+                        clientSocket.Send(msg);
+                    }
+                    else if (data.StartsWith("src "))
+                    {
+
+                    }
+                    else if (data.StartsWith("buy "))
+                    {
+                        data = data.Remove(0, 4); //elimino la parte iniziale "buy "
+                        data = data.Remove(data.Length - 1); //elimino la parte finale "$"
+                        string[] dataSplit = data.Split(';');
+
+                        try
+                        {
+                            foreach (string line in System.IO.File.ReadAllLines(@"..\..\elencoLibri.csv"))
+                            {
+                                string[] lineSplit = line.Split(';');
+                                if (lineSplit[4] == dataSplit[4])
+                                {
+                                    fileLines.Remove(line);
+                                    msg = Encoding.ASCII.GetBytes("successful");
+                                }
                             }
                         }
-                    }
-                    catch (Exception)
-                    {
-                        msg = Encoding.ASCII.GetBytes("failed");
-                    }
+                        catch (Exception)
+                        {
+                            msg = Encoding.ASCII.GetBytes("failed");
+                        }
 
-                    File.WriteAllText(@"..\..\elencoLibri.csv", ""); //il file viene svuotato
-                    //il file viene riscritto
-                    foreach (string line in fileLines)
-                    {
-                        File.AppendAllText(@"..\..\elencoLibri.csv", line + "\n");
+                        File.WriteAllText(@"..\..\elencoLibri.csv", ""); //il file viene svuotato
+                                                                         //il file viene riscritto
+                        foreach (string line in fileLines)
+                        {
+                            File.AppendAllText(@"..\..\elencoLibri.csv", line + "\n");
+                        }
+                        clientSocket.Send(msg);
                     }
-                    clientSocket.Send(msg);
-                }
-                else if (data == "numl$")
-                {
-                    int nl = 0;
-                    foreach (string line in System.IO.File.ReadAllLines(@"..\..\elencoLibri.csv"))
+                    else if (data == "numl$")
                     {
-                        fileLines.Add(line);
-                        nl++;
+                        int nl = 0;
+                        foreach (string line in System.IO.File.ReadAllLines(@"..\..\elencoLibri.csv"))
+                        {
+                            fileLines.Add(line);
+                            nl++;
+                        }
+                        msg = Encoding.ASCII.GetBytes("numl " + nl.ToString());
+                        clientSocket.Send(msg);
                     }
-                    msg = Encoding.ASCII.GetBytes("numl " + nl.ToString());
-                    clientSocket.Send(msg);
+                    else if (data.StartsWith("line "))
+                    {
+                        data = data.Remove(0, 5); //elimino la parte iniziale "line "
+                        data = data.Remove(data.Length - 1); //elimino la parte finale "$"
+                        msg = Encoding.ASCII.GetBytes("line " + fileLines[Int32.Parse(data)]);
+                        clientSocket.Send(msg);
+                    }
                 }
-                else if (data.StartsWith("line "))
-                {
-                    data = data.Remove(0, 5); //elimino la parte iniziale "line "
-                    data = data.Remove(data.Length - 1); //elimino la parte finale "$"
-                    msg = Encoding.ASCII.GetBytes("line " + fileLines[Int32.Parse(data)]);
-                    clientSocket.Send(msg);
-                }
+                clientSocket.Shutdown(SocketShutdown.Both); //chiude la connessione sia del client che del server
+                clientSocket.Close();
+                data = "";
             }
-            clientSocket.Shutdown(SocketShutdown.Both); //chiude la connessione sia del client che del server
-            clientSocket.Close();
-            data = "";
+            catch(SocketException)
+            {
+                Console.WriteLine("SocketException");
+            }
         }
     }
 }

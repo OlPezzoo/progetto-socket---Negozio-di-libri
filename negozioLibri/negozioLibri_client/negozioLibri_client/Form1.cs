@@ -21,6 +21,7 @@ namespace negozioLibri_client
         public static string data;
         public static string stringa_da_inviare;
         string[] dataSplit;
+        List<Libro> libri = new List<Libro>();
 
         public frmHome()
         {
@@ -72,6 +73,7 @@ namespace negozioLibri_client
         {
             try
             {
+                libri.Clear();
                 stringa_da_inviare = "numl$";
                 byte[] msg = Encoding.ASCII.GetBytes(stringa_da_inviare);
                 int bytesSent = sender.Send(msg);
@@ -93,12 +95,14 @@ namespace negozioLibri_client
                     data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
                     data = data.Remove(0, 5); //elimino la parte iniziale "line "
                     dataSplit = data.Split(';');
+                    libri.Add(new Libro(dataSplit[0], dataSplit[1], dataSplit[2], dataSplit[3], dataSplit[4], dataSplit[5], dataSplit[6]));
 
                     PictureBox pic = new PictureBox();
                     pic.Width = 150;
                     pic.Height = 150;
                     pic.BackgroundImageLayout = ImageLayout.Zoom;
                     pic.Parent = flPanelLibri;
+                    pic.Name = "pic_" + i.ToString();
 
                     Label lblTitolo = new Label();
                     lblTitolo.Font = new Font("Arial", 12);
@@ -127,7 +131,10 @@ namespace negozioLibri_client
 
         private void picClick(object sender, EventArgs e)
         {
-            frmLibro formLibro = new frmLibro(dataSplit[0], dataSplit[1], dataSplit[2], dataSplit[3], dataSplit[4], dataSplit[5], dataSplit[6]);
+            string senderName = ((PictureBox)sender).Name; //casting del nome della PictureBox
+            string[] senderNameSplit = senderName.Split('_');
+            int indice = Int32.Parse(senderNameSplit[1]);
+            frmLibro formLibro = new frmLibro(libri[indice].pic, libri[indice].titolo, libri[indice].materia, libri[indice].lingua, libri[indice].isbn, libri[indice].descrizione, libri[indice].prezzo);
             formLibro.ShowDialog();
         }
 
@@ -157,9 +164,9 @@ namespace negozioLibri_client
                     MessageBox.Show("La tua ricerca non ha prodotto risultati.");
                 }
             }
-            catch(Exception)
+            catch(Exception e)
             {
-                MessageBox.Show("Si è verificato un errore.");
+                Console.WriteLine(e.ToString());
             }
         }
 
@@ -197,6 +204,28 @@ namespace negozioLibri_client
         {
             flPanelLibri.Controls.Clear();
             listen();
+        }
+    }
+
+    class Libro
+    {
+        public string pic { get; set; }
+        public string titolo { get; set; }
+        public string materia { get; set; }
+        public string lingua { get; set; }
+        public string isbn { get; set; }
+        public string descrizione { get; set; }
+        public string prezzo { get; set; }
+
+        public Libro(string pic, string titolo, string materia, string lingua, string isbn, string descrizione, string prezzo)
+        {
+            this.pic = pic;
+            this.titolo = titolo;
+            this.materia = materia;
+            this.lingua = lingua;
+            this.isbn = isbn;
+            this.descrizione = descrizione;
+            this.prezzo = prezzo;
         }
     }
 }

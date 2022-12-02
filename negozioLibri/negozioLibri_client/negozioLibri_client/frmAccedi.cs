@@ -50,9 +50,9 @@ namespace negozioLibri_client
                     MessageBox.Show("Credenziali non valide.");
                 }
             }
-            catch(Exception)
+            catch(Exception e)
             {
-                MessageBox.Show("Si è verificato un errore.");
+                Console.WriteLine(e.ToString());
             }
         }
 
