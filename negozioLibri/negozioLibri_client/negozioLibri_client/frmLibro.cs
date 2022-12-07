@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Windows.Forms;
@@ -23,7 +20,8 @@ namespace negozioLibri_client
         Socket sender = frmHome.sender;
         string data = frmHome.data;
         string stringa_da_inviare = frmHome.stringa_da_inviare;
-        bool logged = frmAccedi.logged;
+        bool acc = frmAccedi.logged;
+        bool reg = frmRegistrazione.logged;
 
         public frmLibro(string titolo, string materia, string lingua, string isbn, string descrizione, string prezzo)
         {
@@ -68,7 +66,7 @@ namespace negozioLibri_client
 
         private void btnAcquista_Click(object sender, EventArgs e)
         {
-            if (logged == true)
+            if (acc == true || reg == true)
             {
                 acquista();
                 frmHome formHome = new frmHome();

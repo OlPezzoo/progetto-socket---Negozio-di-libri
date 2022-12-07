@@ -1,10 +1,5 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -14,6 +9,7 @@ namespace negozioLibri_client
 {
     public partial class frmRegistrazione : Form
     {
+        public static bool logged = frmAccedi.logged;
         byte[] bytes = frmHome.bytes;
         Socket sender = frmHome.sender;
         string data = frmHome.data;
@@ -29,7 +25,7 @@ namespace negozioLibri_client
 
         }
 
-        public void aggiungiUtente(ref bool r)
+        public void aggiungiUtente(ref bool l)
         {
             try
             {
@@ -42,7 +38,7 @@ namespace negozioLibri_client
                 data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
                 if (data == "successful")
                 {
-                    r = true;
+                    l = true;
                     MessageBox.Show("Registrazione completata.");
                 }
                 else if (data == "failed")
@@ -60,9 +56,8 @@ namespace negozioLibri_client
         {
 			if (txtUsername.Text != "" && mTxtPassword.Text != "" && txtCodiceFiscale.Text != "" && txtMail.Text != "" && txtCell.Text != "")
             {
-                bool r = false;
-                aggiungiUtente(ref r);
-                if (r == true)
+                aggiungiUtente(ref logged);
+                if (logged == true)
                 {
                     this.Close();
                 }

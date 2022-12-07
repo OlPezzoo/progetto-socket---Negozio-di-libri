@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Net;
@@ -16,7 +14,7 @@ namespace negozioLibri_server
     public partial class frmServer : Form
     {
         public static string data = null; //dati in arrivo dal client
-        public static IPAddress ipAddress = System.Net.IPAddress.Parse("127.0.0.1");
+        public static IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
         public static IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 5000);
 
         public frmServer()
@@ -63,7 +61,7 @@ namespace negozioLibri_server
             bool t = false;
             try
             {
-                foreach (string line in System.IO.File.ReadAllLines(@"..\..\elencoLibri.csv"))
+                foreach (string line in File.ReadAllLines(@"..\..\elencoLibri.csv"))
                 {
                     string[] lineSplit = line.Split(';');
                     if (lineSplit[3] == txtCodiceISBN.Text)
@@ -96,7 +94,7 @@ namespace negozioLibri_server
             bool t = false;
             try
             {
-                foreach (string line in System.IO.File.ReadAllLines(@"..\..\elencoUtenti.csv"))
+                foreach (string line in File.ReadAllLines(@"..\..\elencoUtenti.csv"))
                 {
                     string[] lineSplit = line.Split(';');
                     if (lineSplit[2] == cf)
@@ -118,7 +116,7 @@ namespace negozioLibri_server
             bool t = false;
             try
             {
-                foreach (string line in System.IO.File.ReadAllLines(@"..\..\elencoUtenti.csv"))
+                foreach (string line in File.ReadAllLines(@"..\..\elencoUtenti.csv"))
                 {
                     string[] lineSplit = line.Split(';');
                     if (lineSplit[0] == usr && lineSplit[1] == pwd)
@@ -184,6 +182,8 @@ namespace negozioLibri_server
         Socket clientSocket;
         byte[] bytes = new Byte[1024]; //bytes a disposizione per i dati
         String data = "";
+        string pathLibri = @"..\..\elencoLibri.csv";
+        string pathUtenti = @"..\..\elencoUtenti.csv";
         List<string> fileLines = new List<string>();
         List<string> isbnRm = new List<string>();
 
@@ -209,14 +209,12 @@ namespace negozioLibri_server
 
                     if (data.StartsWith("nr "))
                     {
-                        data = data.Remove(0, 3); //elimino la parte iniziale "nr "
-                        data = data.Remove(data.Length - 1); //elimino la parte finale "$"
+                        fixData(3);
                         string[] dataSplit = data.Split(';');
 
                         if (formServer.ricercaCF(dataSplit[2]) == false)
                         {
-                            string path = @"..\..\elencoUtenti.csv";
-                            using (StreamWriter sw = File.AppendText(path))
+                            using (StreamWriter sw = File.AppendText(pathUtenti))
                             {
                                 sw.WriteLine(data);
                             }
@@ -226,12 +224,10 @@ namespace negozioLibri_server
                         {
                             msg = Encoding.ASCII.GetBytes("failed");
                         }
-                        clientSocket.Send(msg);
                     }
                     else if (data.StartsWith("na "))
                     {
-                        data = data.Remove(0, 3); //elimino la parte iniziale "na "
-                        data = data.Remove(data.Length - 1); //elimino la parte finale "$"
+                        fixData(3);
                         string[] dataSplit = data.Split(';');
 
                         if (formServer.login(dataSplit[0], dataSplit[1]) == true)
@@ -242,16 +238,14 @@ namespace negozioLibri_server
                         {
                             msg = Encoding.ASCII.GetBytes("failed");
                         }
-                        clientSocket.Send(msg);
                     }
                     else if (data.StartsWith("numRm "))
                     {
-                        data = data.Remove(0, 6); //elimino la parte iniziale "numRm "
-                        data = data.Remove(data.Length - 1); //elimino la parte finale "$"
+                        fixData(6);
 
                         isbnRm.Clear();
                         int count = 0;
-                        foreach (string fl in System.IO.File.ReadAllLines(@"..\..\elencoLibri.csv"))
+                        foreach (string fl in File.ReadAllLines(pathLibri))
                         {
                             string[] lineSplit = fl.Split(';');
                             if (!(lineSplit[0].StartsWith(data))) //lineSplit[1] --> titolo
@@ -261,23 +255,19 @@ namespace negozioLibri_server
                             }
                         }
                         msg = Encoding.ASCII.GetBytes("numRm " + count.ToString());
-                        clientSocket.Send(msg);
                     }
                     else if (data.StartsWith("rm "))
                     {
-                        data = data.Remove(0, 3); //elimino la parte iniziale "rm "
-                        data = data.Remove(data.Length - 1); //elimino la parte finale "$"
+                        fixData(3);
                         msg = Encoding.ASCII.GetBytes("rm " + isbnRm[Int32.Parse(data)]);
-                        clientSocket.Send(msg);
                     }
                     else if (data.StartsWith("buy "))
                     {
-                        data = data.Remove(0, 4); //elimino la parte iniziale "buy "
-                        data = data.Remove(data.Length - 1); //elimino la parte finale "$"
+                        fixData(4);
 
                         try
                         {
-                            foreach (string line in System.IO.File.ReadAllLines(@"..\..\elencoLibri.csv"))
+                            foreach (string line in File.ReadAllLines(pathLibri))
                             {
                                 string[] lineSplit = line.Split(';');
                                 if (lineSplit[3] == data)
@@ -285,11 +275,11 @@ namespace negozioLibri_server
                                     fileLines.Remove(line);
                                     msg = Encoding.ASCII.GetBytes("successful");
 
-                                    File.WriteAllText(@"..\..\elencoLibri.csv", ""); //il file viene svuotato
+                                    File.WriteAllText(pathLibri, ""); //il file viene svuotato
                                     //il file viene riscritto
                                     foreach (string fl in fileLines)
                                     {
-                                        File.AppendAllText(@"..\..\elencoLibri.csv", fl + "\n");
+                                        File.AppendAllText(pathLibri, fl + "\n");
                                     }
                                 }
                             }
@@ -298,27 +288,25 @@ namespace negozioLibri_server
                         {
                             msg = Encoding.ASCII.GetBytes("failed");
                         }
-                        clientSocket.Send(msg);
                     }
                     else if (data == "numl$")
                     {
                         fileLines.Clear();
                         int nl = 0;
-                        foreach (string line in System.IO.File.ReadAllLines(@"..\..\elencoLibri.csv"))
+                        foreach (string line in File.ReadAllLines(pathLibri))
                         {
                             fileLines.Add(line);
                             nl++;
                         }
                         msg = Encoding.ASCII.GetBytes("numl " + nl.ToString());
-                        clientSocket.Send(msg);
                     }
                     else if (data.StartsWith("line "))
                     {
-                        data = data.Remove(0, 5); //elimino la parte iniziale "line "
-                        data = data.Remove(data.Length - 1); //elimino la parte finale "$"
+                        fixData(5);
                         msg = Encoding.ASCII.GetBytes("line " + fileLines[Int32.Parse(data)]);
-                        clientSocket.Send(msg);
                     }
+
+                    clientSocket.Send(msg);
                 }
                 clientSocket.Shutdown(SocketShutdown.Both); //chiude la connessione sia del client che del server
                 clientSocket.Close();
@@ -328,6 +316,12 @@ namespace negozioLibri_server
             {
                 Console.WriteLine("SocketException");
             }
+        }
+
+        private void fixData(int n)
+        {
+            data = data.Remove(0, n); //elimino la parte iniziale (l'istruzione che il client ha inviato al server)
+            data = data.Remove(data.Length - 1); //elimino la parte finale "$"
         }
     }
 }

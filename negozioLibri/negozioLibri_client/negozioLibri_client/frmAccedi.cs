@@ -1,10 +1,5 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -14,11 +9,11 @@ namespace negozioLibri_client
 {
     public partial class frmAccedi : Form
     {
+        public static bool logged = false;
         byte[] bytes = frmHome.bytes;
         Socket sender = frmHome.sender;
         string data = frmHome.data;
         string stringa_da_inviare = frmHome.stringa_da_inviare;
-        public static bool logged = false;
 
         public frmAccedi()
         {

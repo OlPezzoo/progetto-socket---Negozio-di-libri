@@ -1,10 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -39,7 +35,7 @@ namespace negozioLibri_client
             try
             {
                 data = "";
-                IPAddress ipAddress = System.Net.IPAddress.Parse("127.0.0.1");
+                IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, 5000);
 
                 // Creo un socket TCP
