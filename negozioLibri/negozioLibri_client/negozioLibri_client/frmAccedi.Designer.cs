@@ -118,6 +118,7 @@ namespace negozioLibri_client
             this.mTxtPassword_accedi.PasswordChar = '*';
             this.mTxtPassword_accedi.Size = new System.Drawing.Size(149, 20);
             this.mTxtPassword_accedi.TabIndex = 15;
+            this.mTxtPassword_accedi.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.mTxtPassword_accedi_KeyPress);
             // 
             // frmAccedi
             // 

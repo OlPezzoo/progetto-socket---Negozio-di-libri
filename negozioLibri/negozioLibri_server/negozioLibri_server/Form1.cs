@@ -174,6 +174,15 @@ namespace negozioLibri_server
             Thread t = new Thread(new ThreadStart(startListening));
             t.Start();
         }
+
+        private void txtCodiceISBN_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //permette solo numeri
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
     }
 
     class ClientManager
@@ -248,7 +257,7 @@ namespace negozioLibri_server
                         foreach (string fl in File.ReadAllLines(pathLibri))
                         {
                             string[] lineSplit = fl.Split(';');
-                            if (!(lineSplit[0].StartsWith(data))) //lineSplit[1] --> titolo
+                            if (!(lineSplit[0].StartsWith(data)))
                             {
                                 isbnRm.Add(lineSplit[3]);
                                 count++;

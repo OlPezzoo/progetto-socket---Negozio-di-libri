@@ -74,5 +74,10 @@ namespace negozioLibri_client
             frmReg.ShowDialog();
             this.Close();
         }
+
+        private void mTxtPassword_accedi_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = (e.KeyChar == (char)Keys.Space);
+        }
     }
 }

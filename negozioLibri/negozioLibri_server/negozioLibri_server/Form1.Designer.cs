@@ -112,6 +112,7 @@ namespace negozioLibri_server
             this.txtCodiceISBN.Name = "txtCodiceISBN";
             this.txtCodiceISBN.Size = new System.Drawing.Size(147, 20);
             this.txtCodiceISBN.TabIndex = 27;
+            this.txtCodiceISBN.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodiceISBN_KeyPress);
             // 
             // txtLingua
             // 

@@ -67,5 +67,29 @@ namespace negozioLibri_client
 				MessageBox.Show("Devi compilare entrambi i campi.");
 			}
 		}
+
+        private void txtCodiceFiscale_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = (e.KeyChar == (char)Keys.Space);
+        }
+
+        private void mTxtPassword_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = (e.KeyChar == (char)Keys.Space);
+        }
+
+        private void txtMail_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = (e.KeyChar == (char)Keys.Space);
+        }
+
+        private void txtCell_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //permette solo numeri
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

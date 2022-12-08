@@ -68,6 +68,7 @@ namespace negozioLibri_client
             this.txtCodiceFiscale.Name = "txtCodiceFiscale";
             this.txtCodiceFiscale.Size = new System.Drawing.Size(100, 20);
             this.txtCodiceFiscale.TabIndex = 2;
+            this.txtCodiceFiscale.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodiceFiscale_KeyPress);
             // 
             // lblUsername
             // 
@@ -118,6 +119,7 @@ namespace negozioLibri_client
             this.txtMail.Name = "txtMail";
             this.txtMail.Size = new System.Drawing.Size(100, 20);
             this.txtMail.TabIndex = 9;
+            this.txtMail.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMail_KeyPress);
             // 
             // txtCell
             // 
@@ -125,6 +127,7 @@ namespace negozioLibri_client
             this.txtCell.Name = "txtCell";
             this.txtCell.Size = new System.Drawing.Size(100, 20);
             this.txtCell.TabIndex = 10;
+            this.txtCell.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCell_KeyPress);
             // 
             // btnRegistrati
             // 
@@ -147,6 +150,7 @@ namespace negozioLibri_client
             this.mTxtPassword.PasswordChar = '*';
             this.mTxtPassword.Size = new System.Drawing.Size(100, 20);
             this.mTxtPassword.TabIndex = 15;
+            this.mTxtPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.mTxtPassword_KeyPress);
             // 
             // frmRegistrazione
             // 
