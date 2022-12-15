@@ -183,6 +183,11 @@ namespace negozioLibri_server
                 e.Handled = true;
             }
         }
+
+        private void picBoxLogo_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
     class ClientManager

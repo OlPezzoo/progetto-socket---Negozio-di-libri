@@ -57,6 +57,7 @@ namespace negozioLibri_server
             // 
             // picBoxLogo
             // 
+            this.picBoxLogo.Enabled = false;
             this.picBoxLogo.Image = ((System.Drawing.Image)(resources.GetObject("picBoxLogo.Image")));
             this.picBoxLogo.Location = new System.Drawing.Point(431, 7);
             this.picBoxLogo.Name = "picBoxLogo";
@@ -64,6 +65,7 @@ namespace negozioLibri_server
             this.picBoxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picBoxLogo.TabIndex = 0;
             this.picBoxLogo.TabStop = false;
+            this.picBoxLogo.Click += new System.EventHandler(this.picBoxLogo_Click);
             // 
             // numUpDownPrezzo
             // 

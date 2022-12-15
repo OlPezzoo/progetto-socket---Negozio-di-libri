@@ -67,6 +67,7 @@ namespace negozioLibri_client
             // 
             this.btnLogoHome.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnLogoHome.BackgroundImage")));
             this.btnLogoHome.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnLogoHome.Enabled = false;
             this.btnLogoHome.FlatAppearance.BorderSize = 0;
             this.btnLogoHome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogoHome.Location = new System.Drawing.Point(28, 12);

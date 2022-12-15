@@ -190,7 +190,7 @@ namespace negozioLibri_client
 
         private void btnLogoHome_Click(object sender, EventArgs e)
         {
-            frmHome_Load(sender, e);
+            
         }
 
         private void txtSearch_Enter(object sender, EventArgs e)
